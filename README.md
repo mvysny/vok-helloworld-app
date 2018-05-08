@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/mvysny/vok-helloworld-app-v10.svg?branch=master)](https://travis-ci.org/mvysny/vok-helloworld-app-v10)
 
-# Vaadin Kotlin PWA Demo
+# Vaadin-on-Kotlin Vaadin 10 Example App / Archetype
 
 Template for a simple Vaadin-on-Kotlin Vaadin 10-based application that only requires a Servlet 3.0 container to run.
 Just clone this repo and start building your awesome app!
