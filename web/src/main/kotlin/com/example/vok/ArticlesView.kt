@@ -21,6 +21,12 @@ class ArticlesView: VerticalLayout(), AfterNavigationObserver {
             addColumnFor(Article::text)
             addColumn(NativeButtonRenderer<Article>("Show", { ArticleView.navigateTo(it.id!!) }))
             addColumn(NativeButtonRenderer<Article>("Edit", { EditArticleView.navigateTo(it.id!!) }))
+            addColumn(NativeButtonRenderer<Article>("Destroy", { article ->
+                confirmDialog {
+                    article.delete()
+                    this@grid.refresh()
+                }
+            }))
         }
     }
 
