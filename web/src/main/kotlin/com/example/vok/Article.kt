@@ -20,4 +20,9 @@ data class Article(
     companion object : Dao<Article>
 
     val comments: VokDataProvider<Comment> get() = Comment.dataProvider.withFilter { Comment::article_id eq id }
+
+    override fun delete() = db {
+        Comment.deleteBy { Comment::article_id eq id }
+        super.delete()
+    }
 }

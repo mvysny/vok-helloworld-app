@@ -22,6 +22,10 @@ class CommentsComponent : VerticalLayout() {
             comments.div {
                 html("<p><strong>Commenter:</strong>${comment.commenter}</p><p><strong>Comment:</strong>${comment.body}</p>")
             }
+            comments.button("Delete comment") {
+                themes.add("tertiary small")
+                onLeftClick { comment.delete(); refresh() }
+            }
         }
     }
 }
