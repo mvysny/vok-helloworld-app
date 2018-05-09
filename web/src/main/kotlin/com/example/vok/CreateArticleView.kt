@@ -6,24 +6,11 @@ import com.vaadin.flow.router.Route
 
 @Route("create-article")
 class CreateArticleView: VerticalLayout() {
-    private val binder = beanValidationBinder<Article>()
+    private val editor: ArticleEditor
     init {
         h1("New Article")
-        textField("Title") {
-            bind(binder).bind(Article::title)
+        editor = articleEditor {
+            article = Article()
         }
-        textArea("Text") {
-            bind(binder).bind(Article::text)
-        }
-        button("Save Article") {
-            onLeftClick {
-                val article = Article()
-                if (binder.validate().isOk && binder.writeBeanIfValid(article)) {
-                    article.save()
-                    ArticleView.navigateTo(article.id!!)
-                }
-            }
-        }
-        routerLink(text = "Back", viewType = ArticlesView::class)
     }
 }
