@@ -24,5 +24,6 @@ class CreateArticleView: VerticalLayout() {
                 }
             }
         }
+        routerLink(text = "Back", viewType = ArticlesView::class.java)
     }
 }

@@ -12,6 +12,7 @@ class ArticlesView: VerticalLayout(), AfterNavigationObserver {
     init {
         setSizeFull()
         h1("Listing Articles")
+        routerLink(text = "New Article", viewType = CreateArticleView::class.java)
         grid = grid(dataProvider = Article.dataProvider) {
             isExpand = true; setSizeFull()
             addColumnFor(Article::id)
