@@ -8,6 +8,7 @@ import com.vaadin.flow.router.*
 
 @Route("article")
 class ArticleView: VerticalLayout(), HasUrlParameter<Long> {
+    private val editLink: RouterLink
     private lateinit var title: Text
     private lateinit var text: Text
     init {
@@ -19,13 +20,15 @@ class ArticleView: VerticalLayout(), HasUrlParameter<Long> {
             strong("Text: ")
             this@ArticleView.text = text("")
         }
-        routerLink(text = "Back", viewType = ArticlesView::class.java)
+        editLink = routerLink(null, "Edit")
+        routerLink(text = "Back", viewType = ArticlesView::class)
     }
 
     override fun setParameter(event: BeforeEvent, articleId: Long?) {
         val article = Article.getById(articleId!!)
         title.text = article.title
         text.text = article.text
+        editLink.setRoute(EditArticleView::class, articleId)
     }
 
     companion object {

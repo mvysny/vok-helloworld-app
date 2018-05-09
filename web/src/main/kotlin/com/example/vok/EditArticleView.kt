@@ -19,7 +19,7 @@ class EditArticleView: VerticalLayout(), HasUrlParameter<Long> {
             bind(binder).bind(Article::text)
         }
         button("Save Article") {
-            onLeftClick { event ->
+            onLeftClick {
                 val article = article!!
                 if (binder.validate().isOk && binder.writeBeanIfValid(article)) {
                     article.save()
@@ -27,7 +27,7 @@ class EditArticleView: VerticalLayout(), HasUrlParameter<Long> {
                 }
             }
         }
-        routerLink(text = "Back", viewType = ArticlesView::class.java)
+        routerLink(text = "Back", viewType = ArticlesView::class)
     }
 
     override fun setParameter(event: BeforeEvent, articleId: Long?) {
