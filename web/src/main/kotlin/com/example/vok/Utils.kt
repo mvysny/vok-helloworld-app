@@ -1,6 +1,7 @@
 package com.example.vok
 
 import com.github.vok.karibudsl.flow.*
+import com.vaadin.flow.component.*
 import com.vaadin.flow.component.dialog.Dialog
 
 /**
@@ -26,3 +27,7 @@ fun confirmDialog(text: String = "Are you sure?", title: String? = null, yesList
     }
     window.open()
 }
+
+@Tag(Tag.STRONG)
+class Strong : HtmlContainer(), HasText
+fun (@VaadinDsl HasComponents).strong(text: String = "", block: (@VaadinDsl Strong).() -> Unit = {}) = init(Strong().apply { this.text = text }, block)
