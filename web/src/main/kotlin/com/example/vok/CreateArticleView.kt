@@ -18,7 +18,7 @@ class CreateArticleView: VerticalLayout() {
         button("Save Article") {
             onLeftClick {
                 val article = Article()
-                if (binder.writeBeanIfValid(article)) {
+                if (binder.validate().isOk && binder.writeBeanIfValid(article)) {
                     article.save()
                     ArticleView.navigateTo(article.id!!)
                 }

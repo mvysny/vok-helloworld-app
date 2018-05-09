@@ -19,6 +19,7 @@ class ArticleView: VerticalLayout(), HasUrlParameter<Long> {
             strong("Text: ")
             this@ArticleView.text = text("")
         }
+        routerLink(text = "Back", viewType = ArticlesView::class.java)
     }
 
     override fun setParameter(event: BeforeEvent, articleId: Long?) {
