@@ -15,6 +15,13 @@ class CreateArticleView: VerticalLayout() {
         textArea("Text") {
             bind(binder).bind(Article::text)
         }
-        button("Save Article")
+        button("Save Article") {
+            onLeftClick {
+                val article = Article()
+                if (binder.writeBeanIfValid(article)) {
+                    article.save()
+                }
+            }
+        }
     }
 }
