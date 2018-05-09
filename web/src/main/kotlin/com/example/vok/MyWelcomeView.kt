@@ -7,6 +7,9 @@ import com.vaadin.flow.router.Route
 @Route("")
 class MyWelcomeView: VerticalLayout() {
     init {
-        h1("Hello, Vaadin-on-Kotlin!")
+        verticalLayout {
+            h1("Hello, Vaadin-on-Kotlin!")
+            routerLink(text = "My Blog", viewType = ArticlesView::class.java)
+        }
     }
 }
