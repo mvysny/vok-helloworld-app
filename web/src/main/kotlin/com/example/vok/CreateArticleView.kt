@@ -20,6 +20,7 @@ class CreateArticleView: VerticalLayout() {
                 val article = Article()
                 if (binder.writeBeanIfValid(article)) {
                     article.save()
+                    ArticleView.navigateTo(article.id!!)
                 }
             }
         }
