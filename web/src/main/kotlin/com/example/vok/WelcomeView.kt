@@ -5,7 +5,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout
 import com.vaadin.flow.router.Route
 import com.vaadin.flow.server.Version
 
-@Route("", layout = MainLayout::class)
+@Route("")
 class WelcomeView: VerticalLayout() {
     init {
         setSizeFull(); content { align(center, middle) }; isMargin = false; isSpacing = true
