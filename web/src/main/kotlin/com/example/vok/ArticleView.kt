@@ -10,13 +10,11 @@ import com.vaadin.flow.router.*
 
 @Route("article")
 class ArticleView: VerticalLayout(), HasUrlParameter<Long> {
-    private lateinit var article: Article
     private val editLink: RouterLink
     private lateinit var title: Text
     private lateinit var text: Text
-    private val comments: Div
-    private val commentBinder = beanValidationBinder<Comment>()
-    private lateinit var createComment: Button
+    private val comments: CommentsComponent
+    private val newComment: NewCommentForm
     init {
         div {
             strong("Title: ")
@@ -26,43 +24,21 @@ class ArticleView: VerticalLayout(), HasUrlParameter<Long> {
             strong("Text: ")
             this@ArticleView.text = text("")
         }
-        p("Comments")
-        comments = div()
-        p("Add a comment:")
-        textField("Commenter:") {
-            bind(commentBinder).bind(Comment::commenter)
-        }
-        textField("Body:") {
-            bind(commentBinder).bind(Comment::body)
-        }
-        createComment = button("Create") {
-            onLeftClick { createComment() }
+        comments = commentsComponent()
+        newComment = newCommentForm {
+            commentCreatedListener = { comments.refresh() }
         }
         editLink = routerLink(null, "Edit")
         routerLink(text = "Back", viewType = ArticlesView::class)
     }
 
     override fun setParameter(event: BeforeEvent, articleId: Long?) {
-        article = Article.getById(articleId!!)
+        val article = Article.getById(articleId!!)
+        newComment.article = article
+        comments.articleId = articleId
         title.text = article.title
         text.text = article.text
         editLink.setRoute(EditArticleView::class, articleId)
-    }
-
-    private fun createComment() {
-        val comment = Comment()
-        if (commentBinder.validate().isOk && commentBinder.writeBeanIfValid(comment)) {
-            comment.article_id = article.id
-            comment.save()
-            refreshComments()
-            commentBinder.readBean(Comment())  // this clears the comment fields
-        }
-    }
-    private fun refreshComments() {
-        comments.removeAll()
-        article.comments.getAll().forEach { comment ->
-            comments.html("<p><strong>Commenter:</strong>${comment.commenter}</p><p><strong>Comment:</strong>${comment.body}</p>")
-        }
     }
 
     companion object {
