@@ -2,7 +2,7 @@ buildscript {
     ext.kotlin_version = '1.2.41'
     ext.vok_version = '0.4.10'
     ext.karibudsl_version = '0.4.3'
-    ext.vaadin10_version = '10.0.0.beta9'
+    ext.vaadin10_version = '10.0.0.beta10'
 }
 
 plugins {
@@ -23,12 +23,10 @@ subprojects {
     repositories {
         mavenCentral()
         jcenter()
-        maven { url "https://repo.vaadin.com/nexus/content/repositories/flow" }
         maven { url 'https://maven.vaadin.com/vaadin-addons' }
         maven { url 'https://maven.vaadin.com/vaadin-prereleases' }
         maven { url "https://dl.bintray.com/mvysny/vaadin-on-kotlin" }
         maven { url "https://dl.bintray.com/mvysny/github" }
-        maven { url 'https://dl.bintray.com/webjars/maven' }
     }
 
     apply plugin: 'kotlin'
