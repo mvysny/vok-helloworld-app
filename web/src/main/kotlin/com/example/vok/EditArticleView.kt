@@ -2,7 +2,6 @@ package com.example.vok
 
 import com.github.vok.karibudsl.flow.*
 import com.github.vokorm.getById
-import com.vaadin.flow.component.UI
 import com.vaadin.flow.component.orderedlayout.VerticalLayout
 import com.vaadin.flow.router.*
 
@@ -19,6 +18,6 @@ class EditArticleView: VerticalLayout(), HasUrlParameter<Long> {
     }
 
     companion object {
-        fun navigateTo(articleId: Long) = UI.getCurrent().navigate(EditArticleView::class.java, articleId)
+        fun navigateTo(articleId: Long) = navigateToView(EditArticleView::class, articleId)
     }
 }

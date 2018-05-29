@@ -3,8 +3,6 @@ package com.example.vok
 import com.github.vok.karibudsl.flow.*
 import com.github.vokorm.getById
 import com.vaadin.flow.component.*
-import com.vaadin.flow.component.button.Button
-import com.vaadin.flow.component.html.Div
 import com.vaadin.flow.component.orderedlayout.VerticalLayout
 import com.vaadin.flow.router.*
 
@@ -42,6 +40,6 @@ class ArticleView: VerticalLayout(), HasUrlParameter<Long> {
     }
 
     companion object {
-        fun navigateTo(articleId: Long) = UI.getCurrent().navigate(ArticleView::class.java, articleId)
+        fun navigateTo(articleId: Long) = navigateToView(ArticleView::class, articleId)
     }
 }
