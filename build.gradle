@@ -1,12 +1,12 @@
 buildscript {
-    ext.kotlin_version = '1.2.41'
-    ext.vok_version = '0.4.11'
-    ext.karibudsl_version = '0.4.5'
-    ext.vaadin10_version = '10.0.0.rc3'
+    ext.kotlin_version = '1.2.50'
+    ext.vok_version = '0.4.12'
+    ext.karibudsl_version = '0.4.6'
+    ext.vaadin10_version = '10.0.1'
 }
 
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.2.41"
+    id "org.jetbrains.kotlin.jvm" version "1.2.50"
     id "org.gretty" version "2.1.0"
 }
 
