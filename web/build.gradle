@@ -29,5 +29,5 @@ dependencies {
     compile "com.github.vok:vok-rest:$vok_version"
 
     // Kotlin
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
