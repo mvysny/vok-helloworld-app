@@ -1,11 +1,11 @@
 buildscript {
-    ext.vok_version = '0.4.13'
-    ext.karibudsl_version = '0.4.8'
-    ext.vaadin10_version = '10.0.5'
+    ext.vok_version = '0.4.15'
+    ext.karibudsl_version = '0.4.9'
+    ext.vaadin10_version = '11.0.0'
 }
 
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.2.61"
+    id "org.jetbrains.kotlin.jvm" version "1.2.71"
     id "org.gretty" version "2.1.0"
 }
 
