@@ -6,6 +6,7 @@ apply plugin: "org.gretty"
 
 gretty {
     contextPath = '/'
+    servletContainer = 'jetty9.4'
 }
 
 dependencyManagement {
@@ -13,7 +14,7 @@ dependencyManagement {
 }
 
 dependencies {
-    compile "com.github.vok:vok-framework-v10-sql2o:$vok_version"
+    compile "com.github.vaadinonkotlin:vok-framework-v10-sql2o:$vok_version"
     compile "com.github.vok.karibudsl:karibu-dsl-v10:$karibudsl_version"
 
     // logging
@@ -22,11 +23,11 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.25'
 
     // db
-    compile 'org.flywaydb:flyway-core:5.1.4'
+    compile 'org.flywaydb:flyway-core:5.2.0'
     compile 'com.h2database:h2:1.4.197'
 
     // REST
-    compile "com.github.vok:vok-rest:$vok_version"
+    compile "com.github.vaadinonkotlin:vok-rest:$vok_version"
 
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"

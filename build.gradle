@@ -1,12 +1,12 @@
 buildscript {
-    ext.vok_version = '0.4.15'
+    ext.vok_version = '0.5.0'
     ext.karibudsl_version = '0.4.10'
     ext.vaadin10_version = '11.0.0'
 }
 
 plugins {
     id "org.jetbrains.kotlin.jvm" version "1.2.71"
-    id "org.gretty" version "2.1.0"
+    id "org.gretty" version "2.2.0"
 }
 
 defaultTasks 'clean', 'build'
@@ -16,11 +16,7 @@ allprojects {
     group 'com.example.vok'
     version '1.0-SNAPSHOT'
     repositories {
-        mavenCentral()
         jcenter()
-        maven { url 'https://maven.vaadin.com/vaadin-addons' }
-        maven { url "https://dl.bintray.com/mvysny/vaadin-on-kotlin" }
-        maven { url "https://dl.bintray.com/mvysny/github" }
     }
 }
 
