@@ -1,8 +1,8 @@
 plugins {
     id("io.spring.dependency-management") version "1.0.4.RELEASE"  // remove when https://github.com/gradle/gradle/issues/4417 is fixed
+    war
+    id("org.gretty")
 }
-apply plugin: 'war'
-apply plugin: "org.gretty"
 
 gretty {
     contextPath = "/"
@@ -10,12 +10,12 @@ gretty {
 }
 
 dependencyManagement {
-    imports { mavenBom("com.vaadin:vaadin-bom:$vaadin10_version") }
+    imports { mavenBom("com.vaadin:vaadin-bom:${ext["vaadin10_version"]}") }
 }
 
 dependencies {
-    compile("com.github.vaadinonkotlin:vok-framework-v10-sql2o:$vok_version")
-    compile("com.github.vok.karibudsl:karibu-dsl-v10:$karibudsl_version")
+    compile("com.github.vaadinonkotlin:vok-framework-v10-sql2o:${ext["vok_version"]}")
+    compile("com.github.vok.karibudsl:karibu-dsl-v10:${ext["karibudsl_version"]}")
 
     // logging
     // currently we are logging through the SLF4J API to LogBack. See logback.xml file for the logger configuration
@@ -27,7 +27,7 @@ dependencies {
     compile("com.h2database:h2:1.4.197")
 
     // REST
-    compile("com.github.vaadinonkotlin:vok-rest:$vok_version")
+    compile("com.github.vaadinonkotlin:vok-rest:${ext["vok_version"]}")
 
     // Kotlin
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
