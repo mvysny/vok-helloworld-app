@@ -7,14 +7,24 @@ import java.io.Serializable
 
 data class User(val name: String) : Serializable
 
-object LoginService {
-    fun login(user: User) {
-        Session[User::class] = user
+class LoginService : Serializable {
+
+    fun login(username: String, password: String): Boolean {
+        currentUser = User(username)
         UI.getCurrent().page.reload()
+        return true
     }
-    val currentUser: User? get() = Session[User::class]
+
+    var currentUser: User? = null
+        private set
+
     fun logout() {
         VaadinSession.getCurrent().close()
+        UI.getCurrent().navigate("")
         UI.getCurrent().page.reload()
     }
+
+    val isLoggedIn get() = currentUser != null
 }
+
+val Session.loginService: LoginService get() = getOrPut { LoginService() }

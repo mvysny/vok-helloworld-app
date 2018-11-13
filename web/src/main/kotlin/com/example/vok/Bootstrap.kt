@@ -9,6 +9,7 @@ import eu.vaadinonkotlin.VaadinOnKotlin
 import eu.vaadinonkotlin.rest.configureToJavalin
 import eu.vaadinonkotlin.sql2o.dataSource
 import eu.vaadinonkotlin.sql2o.dataSourceConfig
+import eu.vaadinonkotlin.vaadin10.Session
 import io.javalin.EmbeddedJavalin
 import io.javalin.Javalin
 import org.flywaydb.core.Flyway
@@ -77,7 +78,15 @@ class AppServlet : VaadinServlet()
 /**
  * The root of the component hierarchy.
  */
-class MyUI : UI()
+class MyUI : UI() {
+    override fun init(request: VaadinRequest) {
+        addBeforeEnterListener { event ->
+            if (event.navigationTarget != LoginView::class.java && !Session.loginService.isLoggedIn) {
+                event.rerouteTo(LoginView::class.java)
+            }
+        }
+    }
+}
 
 /**
  * Provides access to REST services. Uses the Javalin library to export the REST services; the services are configured
