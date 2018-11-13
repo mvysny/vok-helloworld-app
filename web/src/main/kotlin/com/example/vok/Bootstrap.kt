@@ -1,16 +1,22 @@
 package com.example.vok
 
-import com.github.vok.framework.VaadinOnKotlin
-import com.github.vok.framework.sql2o.dataSource
-import com.github.vok.framework.sql2o.dataSourceConfig
+import com.google.gson.GsonBuilder
+import eu.vaadinonkotlin.VaadinOnKotlin
+import eu.vaadinonkotlin.rest.configureToJavalin
+import eu.vaadinonkotlin.sql2o.dataSource
+import eu.vaadinonkotlin.sql2o.dataSourceConfig
+import io.javalin.EmbeddedJavalin
+import io.javalin.Javalin
 import org.flywaydb.core.Flyway
 import org.h2.Driver
 import org.slf4j.LoggerFactory
 import javax.servlet.ServletContextEvent
 import javax.servlet.ServletContextListener
 import javax.servlet.annotation.WebListener
-import javax.ws.rs.ApplicationPath
-import javax.ws.rs.core.Application
+import javax.servlet.annotation.WebServlet
+import javax.servlet.http.HttpServlet
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 /**
  * Called by the Servlet Container to bootstrap your app. We need to bootstrap the Vaadin-on-Kotlin framework,
@@ -58,7 +64,22 @@ class Bootstrap: ServletContextListener {
 }
 
 /**
- * RESTEasy configuration. Do not use Jersey, it has a tons of dependencies
+ * Provides access to REST services. Uses the Javalin library to export the REST services; the services are configured
+ * in the [configureRest] method.
  */
-@ApplicationPath("/rest")
-class ApplicationConfig : Application()
+@WebServlet(urlPatterns = ["/rest/*"], name = "JavalinRestServlet", asyncSupported = false)
+class JavalinRestServlet : HttpServlet() {
+    val javalin = EmbeddedJavalin()
+            .configureRest()
+            .createServlet()
+
+    override fun service(req: HttpServletRequest, resp: HttpServletResponse) {
+        javalin.service(req, resp)
+    }
+}
+
+fun Javalin.configureRest(): Javalin {
+    val gson = GsonBuilder().create()
+    gson.configureToJavalin()
+    return this
+}

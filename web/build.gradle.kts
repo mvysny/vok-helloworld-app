@@ -14,8 +14,7 @@ dependencyManagement {
 }
 
 dependencies {
-    compile("com.github.vaadinonkotlin:vok-framework-v10-sql2o:${ext["vok_version"]}")
-    compile("com.github.vok.karibudsl:karibu-dsl-v10:${ext["karibudsl_version"]}")
+    compile("eu.vaadinonkotlin:vok-framework-v10-sql2o:${ext["vok_version"]}")
 
     // logging
     // currently we are logging through the SLF4J API to LogBack. See logback.xml file for the logger configuration
@@ -27,8 +26,8 @@ dependencies {
     compile("com.h2database:h2:1.4.197")
 
     // REST
-    compile("com.github.vaadinonkotlin:vok-rest:${ext["vok_version"]}")
+    compile("eu.vaadinonkotlin:vok-rest:${ext["vok_version"]}")
 
     // Kotlin
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    compile(kotlin("stdlib-jdk8"))
 }
