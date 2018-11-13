@@ -2,7 +2,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.2.71"
+    kotlin("jvm") version "1.3.0"
     id("org.gretty") version "2.2.0"
 }
 
@@ -13,7 +13,6 @@ allprojects {
     version = "1.0-SNAPSHOT"
     repositories {
         jcenter()
-        maven { setUrl("https://dl.bintray.com/mvysny/github") }
     }
 }
 
