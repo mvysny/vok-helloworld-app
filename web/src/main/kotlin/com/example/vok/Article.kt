@@ -1,8 +1,9 @@
 package com.example.vok
 
-import com.github.vok.framework.sql2o.vaadin.*
 import com.github.vokorm.*
-import com.vaadin.flow.data.provider.DataProvider
+import eu.vaadinonkotlin.vaadin10.sql2o.VokDataProvider
+import eu.vaadinonkotlin.vaadin10.sql2o.dataProvider
+import eu.vaadinonkotlin.vaadin10.sql2o.withFilter
 import org.hibernate.validator.constraints.Length
 import javax.validation.constraints.NotNull
 

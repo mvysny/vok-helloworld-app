@@ -1,24 +1,19 @@
 package com.example.vok
 
-import com.github.vok.karibudsl.flow.getAll
+import com.github.mvysny.karibudsl.v10.getAll
 import com.github.vokorm.*
-import javax.ws.rs.*
-import javax.ws.rs.core.MediaType
+import io.javalin.Javalin
+import io.javalin.NotFoundResponse
 
-@Path("/articles")
-class ArticleRest {
-
-    @GET
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    fun get(@PathParam("id") id: Long): Article = Article.findById(id) ?: throw NotFoundException("No article with id $id")
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    fun getAll(): List<Article> = Article.findAll()
-
-    @GET
-    @Path("/{id}/comments")
-    @Produces(MediaType.APPLICATION_JSON)
-    fun getComments(@PathParam("id") id: Long): List<Comment> = get(id).comments.getAll()
+fun Javalin.articleRest() {
+    get("/rest/articles/:id") { ctx ->
+        val id = ctx.pathParam("id").toLong()
+        ctx.json(Article.findById(id) ?: throw NotFoundResponse("No article with id $id"))
+    }
+    get("/rest/articles") { ctx -> ctx.json(Article.findAll()) }
+    get("/rest/articles/:id/comments") { ctx ->
+        val id = ctx.pathParam("id").toLong()
+        val article = Article.findById(id) ?: throw NotFoundResponse("No article with id $id")
+        ctx.json(article.comments.getAll())
+    }
 }
