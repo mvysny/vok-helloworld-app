@@ -81,5 +81,6 @@ class JavalinRestServlet : HttpServlet() {
 fun Javalin.configureRest(): Javalin {
     val gson = GsonBuilder().create()
     gson.configureToJavalin()
+    articleRest()
     return this
 }
