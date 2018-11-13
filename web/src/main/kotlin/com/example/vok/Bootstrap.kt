@@ -1,6 +1,10 @@
 package com.example.vok
 
 import com.google.gson.GsonBuilder
+import com.vaadin.flow.component.UI
+import com.vaadin.flow.server.VaadinRequest
+import com.vaadin.flow.server.VaadinServlet
+import com.vaadin.flow.server.VaadinServletConfiguration
 import eu.vaadinonkotlin.VaadinOnKotlin
 import eu.vaadinonkotlin.rest.configureToJavalin
 import eu.vaadinonkotlin.sql2o.dataSource
@@ -62,6 +66,18 @@ class Bootstrap: ServletContextListener {
         private val log = LoggerFactory.getLogger(Bootstrap::class.java)
     }
 }
+
+/**
+ * The Vaadin servlet which handles Vaadin framework requests.
+ */
+@WebServlet(urlPatterns = ["/*"], name = "VaadinServlet", asyncSupported = true)
+@VaadinServletConfiguration(ui = MyUI::class, productionMode = false)
+class AppServlet : VaadinServlet()
+
+/**
+ * The root of the component hierarchy.
+ */
+class MyUI : UI()
 
 /**
  * Provides access to REST services. Uses the Javalin library to export the REST services; the services are configured
