@@ -1,5 +1,4 @@
 plugins {
-    id("io.spring.dependency-management") version "1.0.4.RELEASE"  // remove when https://github.com/gradle/gradle/issues/4417 is fixed
     war
     id("org.gretty")
 }
@@ -9,12 +8,9 @@ gretty {
     servletContainer = "jetty9.4"
 }
 
-dependencyManagement {
-    imports { mavenBom("com.vaadin:vaadin-bom:${ext["vaadin10_version"]}") }
-}
-
 dependencies {
     compile("eu.vaadinonkotlin:vok-framework-v10-sql2o:${ext["vok_version"]}")
+    compile(platform("com.vaadin:vaadin-bom:${ext["vaadin10_version"]}"))
 
     // logging
     // currently we are logging through the SLF4J API to LogBack. See logback.xml file for the logger configuration
