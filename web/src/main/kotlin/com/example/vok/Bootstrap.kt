@@ -57,7 +57,7 @@ class Bootstrap: ServletContextListener {
     }
 
     override fun contextDestroyed(sce: ServletContextEvent?) {
-        log.info("Shutting down");
+        log.info("Shutting down")
         log.info("Destroying VaadinOnKotlin")
         VaadinOnKotlin.destroy()
         log.info("Shutdown complete")

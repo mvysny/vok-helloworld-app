@@ -4,7 +4,8 @@ import com.github.mvysny.karibudsl.v10.*
 import com.vaadin.flow.component.dialog.Dialog
 
 /**
- * Shows a simple yes-no confirmation dialog, with given [text] and [title]
+ * Shows a simple yes-no confirmation dialog, with given [text] and [title]. When user clicks the `Yes` button,
+ * [yesListener] is invoked.
  * @param text defaults to "Are you sure?"
  */
 fun confirmDialog(text: String = "Are you sure?", title: String? = null, yesListener: ()->Unit) {
