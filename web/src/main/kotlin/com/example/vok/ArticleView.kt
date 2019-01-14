@@ -3,31 +3,32 @@ package com.example.vok
 import com.github.mvysny.karibudsl.v10.*
 import com.github.vokorm.getById
 import com.vaadin.flow.component.*
-import com.vaadin.flow.component.orderedlayout.VerticalLayout
 import com.vaadin.flow.router.*
 
 @Route("article")
-class ArticleView: VerticalLayout(), HasUrlParameter<Long> {
-    private val editLink: RouterLink
+class ArticleView: KComposite(), HasUrlParameter<Long> {
+    private lateinit var editLink: RouterLink
     private lateinit var title: Text
     private lateinit var text: Text
-    private val comments: CommentsComponent
-    private val newComment: NewCommentForm
-    init {
-        div {
-            strong("Title: ")
-            this@ArticleView.title = text("")
+    private lateinit var comments: CommentsComponent
+    private lateinit var newComment: NewCommentForm
+    private val root = ui {
+        verticalLayout {
+            div {
+                strong("Title: ")
+                this@ArticleView.title = text("")
+            }
+            div {
+                strong("Text: ")
+                this@ArticleView.text = text("")
+            }
+            comments = commentsComponent()
+            newComment = newCommentForm {
+                commentCreatedListener = { comments.refresh() }
+            }
+            editLink = routerLink(null, "Edit")
+            routerLink(text = "Back", viewType = ArticlesView::class)
         }
-        div {
-            strong("Text: ")
-            this@ArticleView.text = text("")
-        }
-        comments = commentsComponent()
-        newComment = newCommentForm {
-            commentCreatedListener = { comments.refresh() }
-        }
-        editLink = routerLink(null, "Edit")
-        routerLink(text = "Back", viewType = ArticlesView::class)
     }
 
     override fun setParameter(event: BeforeEvent, articleId: Long?) {
