@@ -8,8 +8,8 @@ import com.vaadin.flow.router.*
 @Route("article")
 class ArticleView: KComposite(), HasUrlParameter<Long> {
     private lateinit var editLink: RouterLink
-    private lateinit var title: Text
-    private lateinit var text: Text
+    internal lateinit var title: Text
+    internal lateinit var text: Text
     private lateinit var comments: CommentsComponent
     private lateinit var newComment: NewCommentForm
     private val root = ui {

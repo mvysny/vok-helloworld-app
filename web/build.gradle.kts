@@ -26,4 +26,8 @@ dependencies {
 
     // Kotlin
     compile(kotlin("stdlib-jdk8"))
+
+    // test support
+    testCompile("com.github.mvysny.kaributesting:karibu-testing-v10:1.1.2")
+    testCompile("com.github.mvysny.dynatest:dynatest-engine:0.15")
 }

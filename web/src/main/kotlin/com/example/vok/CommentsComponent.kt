@@ -10,7 +10,7 @@ class CommentsComponent : KComposite() {
     var articleId: Long = 0L
         set(value) { field = value; refresh() }
 
-    private lateinit var comments: VerticalLayout
+    internal lateinit var comments: VerticalLayout
     private val root = ui {
         verticalLayout {
             isMargin = false

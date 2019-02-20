@@ -26,7 +26,7 @@ class ArticlesView: KComposite(), AfterNavigationObserver {
                         article.delete()
                         this@grid.refresh()
                     }
-                }))
+                })).key = "destroy"
             }
         }
     }
