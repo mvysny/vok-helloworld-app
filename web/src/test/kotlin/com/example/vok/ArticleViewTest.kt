@@ -4,6 +4,7 @@ import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.kaributesting.v10._click
 import com.github.mvysny.kaributesting.v10._expectOne
 import com.github.mvysny.kaributesting.v10._get
+import com.github.mvysny.kaributesting.v10.expectView
 import com.vaadin.flow.component.button.Button
 import com.vaadin.flow.router.RouterLink
 import kotlin.test.expect
