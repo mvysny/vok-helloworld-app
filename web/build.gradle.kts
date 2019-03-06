@@ -18,8 +18,8 @@ dependencies {
     compile("org.slf4j:slf4j-api:1.7.25")
 
     // db
-    compile("org.flywaydb:flyway-core:5.2.0")
-    compile("com.h2database:h2:1.4.197")
+    compile("org.flywaydb:flyway-core:5.2.4")
+    compile("com.h2database:h2:1.4.198")
 
     // REST
     compile("eu.vaadinonkotlin:vok-rest:${properties["vok_version"]}")
