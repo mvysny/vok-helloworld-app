@@ -7,7 +7,7 @@ plugins {
     id("com.vaadin") version "0.5.0" apply(false)
 }
 
-defaultTasks("clean", "build")
+defaultTasks("clean", "vaadinBuildFrontend", "build")
 
 allprojects {
     group = "com.example.vok"
