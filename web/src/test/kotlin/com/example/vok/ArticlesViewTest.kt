@@ -3,7 +3,6 @@ package com.example.vok
 import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.karibudsl.v10.navigateToView
 import com.github.mvysny.kaributesting.v10.*
-import com.github.vokorm.findAll
 import com.vaadin.flow.component.button.Button
 import com.vaadin.flow.component.dialog.Dialog
 import com.vaadin.flow.component.grid.Grid
@@ -23,7 +22,7 @@ class ArticlesViewTest : DynaTest({
         navigateToView<ArticlesView>()
         val grid = _get<Grid<Article>>()
         grid.expectRows(10)
-        grid.expectRow(0, Article.findAll()[0].id.toString(), "Title 0", "Text 0", "null", "null", "null")
+        grid.expectRow(0, Article.findAll()[0].id.toString(), "Title 0", "Text 0", "Show", "Edit", "Destroy")
     }
 
     test("delete article") {

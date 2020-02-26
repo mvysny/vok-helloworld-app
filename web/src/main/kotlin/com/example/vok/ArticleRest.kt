@@ -1,9 +1,8 @@
 package com.example.vok
 
 import com.github.mvysny.karibudsl.v10.getAll
-import com.github.vokorm.*
 import io.javalin.Javalin
-import io.javalin.NotFoundResponse
+import io.javalin.http.NotFoundResponse
 
 fun Javalin.articleRest() {
     get("/rest/articles/:id") { ctx ->

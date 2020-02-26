@@ -4,7 +4,7 @@ import com.github.mvysny.karibudsl.v10.*
 import com.vaadin.flow.component.grid.Grid
 import com.vaadin.flow.data.renderer.NativeButtonRenderer
 import com.vaadin.flow.router.*
-import eu.vaadinonkotlin.vaadin10.sql2o.dataProvider
+import eu.vaadinonkotlin.vaadin10.vokdb.dataProvider
 
 @Route("articles")
 class ArticlesView: KComposite(), AfterNavigationObserver {

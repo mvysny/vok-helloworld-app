@@ -1,6 +1,7 @@
 package com.example.vok
 
 import com.github.mvysny.karibudsl.v10.*
+import com.vaadin.flow.component.login.*
 import com.vaadin.flow.router.*
 import eu.vaadinonkotlin.vaadin10.*
 
@@ -18,15 +19,14 @@ class LoginView : KComposite(), BeforeEnterObserver {
         verticalLayout {
             setSizeFull(); isPadding = false; content { center() }
 
-            loginForm = loginForm("Hello!") {
-                classNames.add("loginform")
-                text("Log in as user/user or admin/admin")
-                onLogin { username, password ->
-                    if (!Session.loginService.login(username, password)) {
-                        usernameField.isInvalid = true
-                        usernameField.errorMessage = "No such user or invalid password"
-                        passwordField.isInvalid = true
-                        passwordField.errorMessage = "No such user or invalid password"
+            val loginI18n: LoginI18n = loginI18n {
+                header.title = "Hello!"
+                additionalInformation = "Log in as user/user or admin/admin"
+            }
+            loginForm = loginForm(loginI18n) {
+                addLoginListener { e ->
+                    if (!Session.loginService.login(e.username, e.password)) {
+                        isError = true
                     }
                 }
             }

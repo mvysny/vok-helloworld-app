@@ -4,6 +4,7 @@ import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.kaributesting.v10.*
 import com.github.vokorm.deleteAll
 import com.vaadin.flow.component.button.Button
+import com.vaadin.flow.component.login.LoginForm
 import com.vaadin.flow.component.textfield.PasswordField
 import com.vaadin.flow.component.textfield.TextField
 
@@ -22,7 +23,5 @@ fun DynaNodeGroup.usingApp() {
 }
 
 fun login() {
-    _get<TextField> { caption = "Username" }._value = "admin"
-    _get<PasswordField> { caption = "Password" }._value = "admin"
-    _get<Button> { caption = "Login" }._click()
+    _get<LoginForm>()._login("admin", "admin")
 }
