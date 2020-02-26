@@ -1,20 +1,22 @@
 [![Powered By Vaadin on Kotlin](http://vaadinonkotlin.eu/iconography/vok_badge.svg)](http://vaadinonkotlin.eu)
 [![Build Status](https://travis-ci.org/mvysny/vok-helloworld-app-v10.svg?branch=master)](https://travis-ci.org/mvysny/vok-helloworld-app-v10)
 
-# Vaadin-on-Kotlin Vaadin 10 Example App / Archetype
+# Vaadin-on-Kotlin Vaadin 14 Example App / Archetype
 
-Template for a simple Vaadin-on-Kotlin Vaadin 10-based application that only requires a Servlet 3.0 container to run. Just clone this repo and start building your awesome app!
+Template for a simple Vaadin-on-Kotlin Vaadin 14-based application that only
+requires a Servlet 3.0 container to run. Just clone this repo and start building your awesome app!
 
 You'll start with this app when you follow the [Getting Started tutorial](http://www.vaadinonkotlin.eu/gettingstarted-v10.html).
 
 # Getting Started
 
-To quickly start the app, make sure that you have Java 8 JDK installed. Then, just type this into your terminal:
+To quickly start the app, make sure that you have Java 8 JDK installed.
+Then, just type this into your terminal:
 
 ```bash
 git clone https://github.com/mvysny/vok-helloworld-app-v10
 cd vok-helloworld-app-v10
-./gradlew build web:appRun
+./gradlew vaadinBuildFrontend build web:appRun
 ```
 
 The app will be running on [http://localhost:8080/](http://localhost:8080/).
@@ -31,10 +33,11 @@ To compile the entire project, run `./gradlew`.
 To quickly run the app on your machine, just run the following from your terminal:
 
 ```bash
-$ ./gradlew web:appRun
+$ ./gradlew vaadinBuildFrontend build web:appRun
 ```
 
-Gradle will automatically download an embedded servlet container (Jetty) and will run your app in it. Your app will be running on [http://localhost:8080](http://localhost:8080).
+Gradle will automatically download an embedded servlet container (Jetty) and will
+run your app in it. Your app will be running on [http://localhost:8080](http://localhost:8080).
 
 ## Dissection of project files
 
@@ -55,7 +58,13 @@ It includes support for launching your project in any servlet container (Tomcat 
 and allows you to debug the code, modify the code and hot-redeploy the code into the running Tomcat
 instance, without having to restart Tomcat.
 
-1. First, download Tomcat and register it into your IntelliJ IDEA properly: https://www.jetbrains.com/help/idea/configuring-and-managing-application-server-integration.html
-2. Then just open this project in Intellij, simply by selecting `File / Open...` and click on the `build.gradle` file. When asked, select "Open as Project".
-2. You can then create a launch configuration which will launch the `web` module as `exploded` in Tomcat with Intellij: just scroll to the end of this tutorial: https://kotlinlang.org/docs/tutorials/httpservlets.html
-3. Start your newly created launch configuration in Debug mode. This way, you can modify the code and press `Ctrl+F9` to hot-redeploy the code. This only redeploys java code though, to redeploy resources just press `Ctrl+F10` and select "Update classes and resources"
+1. First, download Tomcat and register it into your IntelliJ IDEA properly:
+   https://www.jetbrains.com/help/idea/configuring-and-managing-application-server-integration.html
+2. Then just open this project in Intellij, simply by selecting `File / Open...`
+   and click on the `build.gradle` file. When asked, select "Open as Project".
+2. You can then create a launch configuration which will launch the `web` module as
+   `exploded` in Tomcat with Intellij: just scroll to the end of this tutorial:
+   https://kotlinlang.org/docs/tutorials/httpservlets.html
+3. Start your newly created launch configuration in Debug mode. This way, you
+   can modify the code and press `Ctrl+F9` to hot-redeploy the code. This only
+   redeploys java code though, to redeploy resources just press `Ctrl+F10` and select "Update classes and resources"
