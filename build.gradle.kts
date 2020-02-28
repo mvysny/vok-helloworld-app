@@ -4,10 +4,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.3.61"
     id("org.gretty") version "3.0.1" apply(false)
-    id("com.vaadin") version "0.5.1" apply(false)
+    id("com.vaadin") version "0.6.0" apply(false)
 }
 
-defaultTasks("clean", "vaadinBuildFrontend", "build")
+defaultTasks("clean", "build")
 
 allprojects {
     group = "com.example.vok"
