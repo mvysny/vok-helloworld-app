@@ -8,36 +8,89 @@ requires a Servlet 3.0 container to run. Just clone this repo and start building
 
 You'll start with this app when you follow the [Getting Started tutorial](http://www.vaadinonkotlin.eu/gettingstarted-v10.html).
 
+# Preparing Environment
+
+The Vaadin 14 build requires node.js and npm. You can either use the Vaadin Gradle plugin to install it for
+you (the `vaadinPrepareNode` task, handy for the CI), or you can install it to your OS:
+
+* Windows: [node.js Download site](https://nodejs.org/en/download/) - use the .msi 64-bit installer
+* Linux: `sudo apt install npm`
+
+To make Vaadin Gradle plugin install node.js+npm for you, just run the following command
+in the project's sources (you only need to run this command once):
+
+```
+./gradlew vaadinPrepareNode
+```
+
+Also make sure that you have Java 8 (or higher) JDK installed.
+
 # Getting Started
 
-To quickly start the app, make sure that you have Java 8 JDK installed.
-Then, just type this into your terminal:
+To quickly start the app, just type this into your terminal:
 
 ```bash
 git clone https://github.com/mvysny/vok-helloworld-app-v10
 cd vok-helloworld-app-v10
-./gradlew vaadinBuildFrontend build web:appRun
+./gradlew build web:appRun
 ```
 
 The app will be running on [http://localhost:8080/](http://localhost:8080/).
+
+Since the build system is a Gradle file written in Kotlin, we suggest you
+use [Intellij IDEA](https://www.jetbrains.com/idea/download)
+to edit the project files. The Community edition is enough to run the server
+via Gretty's `./gradlew appRun`. The Ultimate edition will allow you to run the
+project in Tomcat - this is the recommended
+option for a real development.
 
 ## The 'complete' sources
 
 You can switch the git branch from 'master' to ['complete'](../../tree/complete), to see the outcome application of the
 [Vaadin-on-Kotlin Getting Started](http://www.vaadinonkotlin.eu/gettingstarted-v10.html) tutorial.
 
-## Running The App
+## Supported Modes
 
-To compile the entire project, run `./gradlew`.
+Runs in Vaadin 14 npm mode, using the [Vaadin Gradle Plugin](https://github.com/vaadin/vaadin-gradle-plugin).
 
-To quickly run the app on your machine, just run the following from your terminal:
+Both the [development and production modes](https://vaadin.com/docs/v14/flow/production/tutorial-production-mode-basic.html) are supported.
+To prepare for development mode, just run:
 
 ```bash
-$ ./gradlew vaadinBuildFrontend build web:appRun
+./gradlew clean vaadinPrepareFrontend
 ```
 
-Gradle will automatically download an embedded servlet container (Jetty) and will
-run your app in it. Your app will be running on [http://localhost:8080](http://localhost:8080).
+If you don't have node installed, you can use Vaadin plugin to download node.js for you:
+
+```bash
+./gradlew vaadinPrepareNode
+```
+
+To build in production mode, just run:
+
+```bash
+./gradlew clean build -Pvaadin.productionMode
+```
+
+If you don't have node installed in your CI environment, you can use Vaadin plugin to download node.js for you beforehand:
+
+```bash
+./gradlew clean vaadinPrepareNode vaadinBuildFrontend build
+```
+
+# Workflow
+
+To compile the entire project in production mode, run `./gradlew -Pvaadin.productionMode`.
+
+To run the application in development mode, run `./gradlew appRun` and open [http://localhost:8080/](http://localhost:8080/).
+
+To produce a deployable production-mode WAR:
+- run `./gradlew -Pvaadin.productionMode`
+- You will find the WAR file in `build/libs/*.war`
+- To revert your environment back to development mode, just run `./gradlew` or `./gradlew vaadinPrepareFrontend`
+  (omit the `-Pvaadin.productionMode`) switch.
+
+This will allow you to quickly start the example app and allow you to do some basic modifications.
 
 ## Dissection of project files
 
