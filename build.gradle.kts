@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.3.61"
     id("org.gretty") version "3.0.1" apply(false)
-    id("com.vaadin") version "0.6.0" apply(false)
+    id("com.vaadin") version "0.8.0" apply(false)
 }
 
 defaultTasks("clean", "build")
