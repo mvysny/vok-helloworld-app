@@ -24,8 +24,8 @@ dependencies {
     implementation("com.zaxxer:HikariCP:3.4.5")
 
     // logging
-    // currently we are logging through the SLF4J API to LogBack. See logback.xml file for the logger configuration
-    implementation("ch.qos.logback:logback-classic:1.2.3")
+    // currently we are logging through the SLF4J API to SLF4J-Simple. See src/main/resources/simplelogger.properties file for the logger configuration
+    implementation("org.slf4j:slf4j-simple:1.7.30")
     implementation("org.slf4j:slf4j-api:1.7.30")
 
     // validation
