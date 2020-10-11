@@ -3,7 +3,7 @@ package com.example.vok
 import com.github.mvysny.karibudsl.v10.*
 import com.vaadin.flow.router.Route
 
-@Route("")
+@Route("", layout = MainLayout::class)
 class MyWelcomeView: KComposite() {
     private val root = ui {
         verticalLayout {

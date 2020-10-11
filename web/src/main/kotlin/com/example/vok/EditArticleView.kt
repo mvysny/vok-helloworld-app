@@ -1,10 +1,9 @@
 package com.example.vok
 
 import com.github.mvysny.karibudsl.v10.*
-import com.github.vokorm.getById
 import com.vaadin.flow.router.*
 
-@Route("edit-article")
+@Route("edit-article", layout = MainLayout::class)
 class EditArticleView: KComposite(), HasUrlParameter<Long> {
     private lateinit var editor: ArticleEditor
     private val root = ui {

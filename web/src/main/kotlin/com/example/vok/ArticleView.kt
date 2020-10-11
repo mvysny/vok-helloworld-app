@@ -1,11 +1,10 @@
 package com.example.vok
 
 import com.github.mvysny.karibudsl.v10.*
-import com.github.vokorm.getById
 import com.vaadin.flow.component.*
 import com.vaadin.flow.router.*
 
-@Route("article")
+@Route("article", layout = MainLayout::class)
 class ArticleView: KComposite(), HasUrlParameter<Long> {
     private lateinit var editLink: RouterLink
     internal lateinit var title: Text

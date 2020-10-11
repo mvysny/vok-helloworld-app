@@ -1,12 +1,13 @@
 package com.example.vok
 
 import com.github.mvysny.karibudsl.v10.*
+import com.github.vokorm.dataloader.dataLoader
 import com.vaadin.flow.component.grid.Grid
 import com.vaadin.flow.data.renderer.NativeButtonRenderer
 import com.vaadin.flow.router.*
-import eu.vaadinonkotlin.vaadin10.vokdb.dataProvider
+import eu.vaadinonkotlin.vaadin10.vokdb.setDataLoader
 
-@Route("articles")
+@Route("articles", layout = MainLayout::class)
 class ArticlesView: KComposite(), AfterNavigationObserver {
     private lateinit var grid: Grid<Article>
     private val root = ui {
@@ -14,8 +15,10 @@ class ArticlesView: KComposite(), AfterNavigationObserver {
             setSizeFull()
             h1("Listing Articles")
             routerLink(text = "New Article", viewType = CreateArticleView::class)
-            grid = grid(dataProvider = Article.dataProvider) {
+            grid = grid {
                 isExpand = true; setSizeFull()
+                setDataLoader(Article.dataLoader)
+
                 addColumnFor(Article::id)
                 addColumnFor(Article::title)
                 addColumnFor(Article::text)

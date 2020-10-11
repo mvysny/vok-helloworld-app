@@ -4,7 +4,7 @@ import com.github.mvysny.karibudsl.v10.*
 import com.vaadin.flow.router.Route
 import com.vaadin.flow.server.Version
 
-@Route("old-welcome")
+@Route("old-welcome", layout = MainLayout::class)
 class WelcomeView: KComposite() {
     private val root = ui {
         verticalLayout {

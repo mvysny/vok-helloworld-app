@@ -2,11 +2,7 @@ package com.example.vok
 
 import com.github.mvysny.dynatest.DynaNodeGroup
 import com.github.mvysny.kaributesting.v10.*
-import com.github.vokorm.deleteAll
-import com.vaadin.flow.component.button.Button
 import com.vaadin.flow.component.login.LoginForm
-import com.vaadin.flow.component.textfield.PasswordField
-import com.vaadin.flow.component.textfield.TextField
 
 fun DynaNodeGroup.usingApp() {
     beforeGroup { Bootstrap().contextInitialized(null) }
@@ -18,7 +14,7 @@ fun DynaNodeGroup.usingApp() {
     beforeEach { cleanDatabase() }
     afterEach { cleanDatabase() }
 
-    beforeEach { MockVaadin.setup(Routes().autoDiscoverViews("com.example.vok"), uiFactory = { MyUI() }) }
+    beforeEach { MockVaadin.setup(Routes().autoDiscoverViews("com.example.vok")) }
     afterEach { MockVaadin.tearDown() }
 }
 

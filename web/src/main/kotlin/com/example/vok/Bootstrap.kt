@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder
 import com.vaadin.flow.component.UI
 import com.vaadin.flow.server.VaadinRequest
 import com.vaadin.flow.server.VaadinServlet
-import com.vaadin.flow.server.VaadinServletConfiguration
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import eu.vaadinonkotlin.VaadinOnKotlin
@@ -68,26 +67,6 @@ class Bootstrap: ServletContextListener {
 
     companion object {
         private val log = LoggerFactory.getLogger(Bootstrap::class.java)
-    }
-}
-
-/**
- * The Vaadin servlet which handles Vaadin framework requests.
- */
-@WebServlet(urlPatterns = ["/*"], name = "VaadinServlet", asyncSupported = true)
-@VaadinServletConfiguration(ui = MyUI::class, productionMode = false)
-class AppServlet : VaadinServlet()
-
-/**
- * The root of the component hierarchy.
- */
-class MyUI : UI() {
-    override fun init(request: VaadinRequest) {
-        addBeforeEnterListener { event ->
-            if (event.navigationTarget != LoginView::class.java && !Session.loginService.isLoggedIn) {
-                event.rerouteTo(LoginView::class.java)
-            }
-        }
     }
 }
 
