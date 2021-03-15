@@ -21,6 +21,10 @@ class MainLayout : KComposite(), RouterLayout, BeforeEnterObserver {
         }
     }
 
+    /**
+     * Invoked before a view is shown. We will perform security checks here - if
+     * no user is logged in, we'll simply redirect to the LoginView.
+     */
     override fun beforeEnter(event: BeforeEnterEvent) {
         if (event.navigationTarget != LoginView::class.java && !Session.loginService.isLoggedIn) {
             event.rerouteTo(LoginView::class.java)
