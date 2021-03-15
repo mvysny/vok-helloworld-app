@@ -36,7 +36,7 @@ dependencies {
     implementation("org.glassfish:javax.el:3.0.1-b11")
 
     // db
-    implementation("org.flywaydb:flyway-core:6.1.4")
+    implementation("org.flywaydb:flyway-core:7.1.1")
     implementation("com.h2database:h2:1.4.200")
 
     // REST
