@@ -1,12 +1,12 @@
 package com.example.vok
 
-import com.vaadin.flow.component.html.Div
+import com.github.mvysny.karibudsl.v10.KComposite
+import com.github.mvysny.karibudsl.v10.div
 import com.vaadin.flow.component.page.Viewport
 import com.vaadin.flow.router.BeforeEnterEvent
 import com.vaadin.flow.router.BeforeEnterObserver
 import com.vaadin.flow.router.RouterLayout
 import eu.vaadinonkotlin.vaadin10.Session
-import eu.vaadinonkotlin.vaadin10.VokSecurity
 
 /**
  * The main layout:
@@ -14,9 +14,11 @@ import eu.vaadinonkotlin.vaadin10.VokSecurity
  * * handles redirect to the [LoginView] if no user is logged in.
  */
 @Viewport(Viewport.DEVICE_DIMENSIONS)
-class MainLayout : Div(), RouterLayout, BeforeEnterObserver {
-    init {
-        setSizeFull()
+class MainLayout : KComposite(), RouterLayout, BeforeEnterObserver {
+    private val root = ui {
+        div {
+            setSizeFull()
+        }
     }
 
     override fun beforeEnter(event: BeforeEnterEvent) {
