@@ -10,18 +10,11 @@ You'll start with this app when you follow the [Getting Started tutorial](http:/
 
 # Preparing Environment
 
-The Vaadin 14 build requires node.js and npm. You can either use the Vaadin Gradle plugin to install it for
-you (the `vaadinPrepareNode` task, handy for the CI), or you can install it to your OS:
+The Vaadin 14 build requires node.js and npm. You can either use the Vaadin Gradle plugin to install nodejs+npm for
+you automatically (recommended, you don't have to do anything), or you can install nodejs+npm to your OS:
 
 * Windows: [node.js Download site](https://nodejs.org/en/download/) - use the .msi 64-bit installer
 * Linux: `sudo apt install npm`
-
-To make Vaadin Gradle plugin install node.js+npm for you, just run the following command
-in the project's sources (you only need to run this command once):
-
-```
-./gradlew vaadinPrepareNode
-```
 
 Also make sure that you have Java 8 (or higher) JDK installed.
 
@@ -30,8 +23,8 @@ Also make sure that you have Java 8 (or higher) JDK installed.
 To quickly start the app, just type this into your terminal:
 
 ```bash
-git clone https://github.com/mvysny/vok-helloworld-app-v10
-cd vok-helloworld-app-v10
+git clone https://github.com/mvysny/vok-helloworld-app
+cd vok-helloworld-app
 ./gradlew build web:appRun
 ```
 
