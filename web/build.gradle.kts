@@ -21,7 +21,7 @@ dependencies {
     }
     providedCompile("javax.servlet:javax.servlet-api:3.1.0")
 
-    implementation("com.zaxxer:HikariCP:3.4.5")
+    implementation("com.zaxxer:HikariCP:4.0.3")
 
     // logging
     // currently we are logging through the SLF4J API to SLF4J-Simple. See src/main/resources/simplelogger.properties file for the logger configuration
