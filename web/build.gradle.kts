@@ -51,5 +51,5 @@ dependencies {
 }
 
 vaadin {
-    pnpmEnable = true
+    pnpmEnable = false  // workaround for https://github.com/vaadin/flow/issues/10571
 }
