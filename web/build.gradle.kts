@@ -10,7 +10,7 @@ gretty {
 }
 
 dependencies {
-    implementation("eu.vaadinonkotlin:vok-framework-v10-vokdb:${properties["vok_version"]}")
+    implementation("eu.vaadinonkotlin:vok-framework-vokdb:${properties["vok_version"]}")
     // Vaadin 14
     implementation("com.vaadin:vaadin-core:${properties["vaadin_version"]}") {
         // Webjars are only needed when running in Vaadin 13 compatibility mode
