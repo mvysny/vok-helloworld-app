@@ -1,6 +1,7 @@
 package com.example.vok
 
 import com.github.mvysny.karibudsl.v10.*
+import com.github.mvysny.kaributools.refresh
 import com.github.vokorm.dataloader.dataLoader
 import com.vaadin.flow.component.grid.Grid
 import com.vaadin.flow.data.renderer.NativeButtonRenderer
@@ -19,9 +20,9 @@ class ArticlesView: KComposite(), AfterNavigationObserver {
                 isExpand = true; setSizeFull()
                 setDataLoader(Article.dataLoader)
 
-                addColumnFor(Article::id)
-                addColumnFor(Article::title)
-                addColumnFor(Article::text)
+                addColumnFor(Article::id) {}
+                addColumnFor(Article::title) {}
+                addColumnFor(Article::text) {}
                 addColumn(NativeButtonRenderer<Article>("Show", { ArticleView.navigateTo(it.id!!) }))
                 addColumn(NativeButtonRenderer<Article>("Edit", { EditArticleView.navigateTo(it.id!!) }))
                 addColumn(NativeButtonRenderer<Article>("Destroy", { article ->

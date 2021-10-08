@@ -1,6 +1,8 @@
 package com.example.vok
 
 import com.github.mvysny.karibudsl.v10.*
+import com.github.mvysny.kaributools.navigateTo
+import com.github.mvysny.kaributools.setRoute
 import com.vaadin.flow.component.*
 import com.vaadin.flow.router.*
 
@@ -40,6 +42,6 @@ class ArticleView: KComposite(), HasUrlParameter<Long> {
     }
 
     companion object {
-        fun navigateTo(articleId: Long) = navigateToView(ArticleView::class, articleId)
+        fun navigateTo(articleId: Long) = navigateTo(ArticleView::class, articleId)
     }
 }
