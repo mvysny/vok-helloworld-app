@@ -1,6 +1,7 @@
 package com.example.vok
 
 import com.github.mvysny.karibudsl.v10.*
+import com.github.mvysny.kaributools.setPrimary
 import com.vaadin.flow.component.dependency.NpmPackage
 import com.vaadin.flow.component.dialog.Dialog
 import com.vaadin.shrinkwrap.VaadinCoreShrinkWrap

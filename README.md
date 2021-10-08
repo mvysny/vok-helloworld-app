@@ -1,5 +1,5 @@
 [![Powered By Vaadin on Kotlin](http://vaadinonkotlin.eu/iconography/vok_badge.svg)](http://vaadinonkotlin.eu)
-[![Build Status](https://travis-ci.org/mvysny/vok-helloworld-app-v10.svg?branch=master)](https://travis-ci.org/mvysny/vok-helloworld-app-v10)
+[![Build Status](https://github.com/mvysny/vok-helloworld-app/actions/workflows/gradle.yml/badge.svg)](https://github.com/mvysny/vok-helloworld-app/actions/workflows/gradle.yml)
 
 # Vaadin-on-Kotlin Vaadin 14 Example App / Archetype
 
