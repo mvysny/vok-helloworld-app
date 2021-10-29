@@ -20,9 +20,9 @@ class ArticlesView: KComposite(), AfterNavigationObserver {
                 isExpand = true; setSizeFull()
                 setDataLoader(Article.dataLoader)
 
-                addColumnFor(Article::id) {}
-                addColumnFor(Article::title) {}
-                addColumnFor(Article::text) {}
+                columnFor(Article::id) {}
+                columnFor(Article::title) {}
+                columnFor(Article::text) {}
                 addColumn(NativeButtonRenderer<Article>("Show", { ArticleView.navigateTo(it.id!!) }))
                 addColumn(NativeButtonRenderer<Article>("Edit", { EditArticleView.navigateTo(it.id!!) }))
                 addColumn(NativeButtonRenderer<Article>("Destroy", { article ->
