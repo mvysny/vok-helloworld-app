@@ -29,7 +29,7 @@ dependencies {
     implementation("org.slf4j:slf4j-api:1.7.32")
 
     // db
-    implementation("org.flywaydb:flyway-core:7.14.1")
+    implementation("org.flywaydb:flyway-core:8.0.1")
     implementation("com.h2database:h2:1.4.200")
 
     // REST
