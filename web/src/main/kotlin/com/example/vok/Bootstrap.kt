@@ -1,15 +1,10 @@
 package com.example.vok
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.vaadin.flow.component.UI
-import com.vaadin.flow.server.VaadinRequest
-import com.vaadin.flow.server.VaadinServlet
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import eu.vaadinonkotlin.VaadinOnKotlin
-import eu.vaadinonkotlin.rest.configureToJavalin
-import eu.vaadinonkotlin.vaadin10.Session
+import eu.vaadinonkotlin.rest.VokRest
+import eu.vaadinonkotlin.rest.gsonMapper
 import eu.vaadinonkotlin.vokdb.dataSource
 import io.javalin.Javalin
 import io.javalin.http.JavalinServlet
@@ -78,7 +73,7 @@ class Bootstrap: ServletContextListener {
 class JavalinRestServlet : HttpServlet() {
     val javalin: JavalinServlet = Javalin.createStandalone()
             .configureRest()
-            .servlet()
+            .javalinServlet()
 
     override fun service(req: HttpServletRequest, resp: HttpServletResponse) {
         javalin.service(req, resp)
@@ -86,8 +81,7 @@ class JavalinRestServlet : HttpServlet() {
 }
 
 fun Javalin.configureRest(): Javalin {
-    val gson: Gson = GsonBuilder().create()
-    gson.configureToJavalin()
+    gsonMapper(VokRest.gson)
     articleRest()
     return this
 }
