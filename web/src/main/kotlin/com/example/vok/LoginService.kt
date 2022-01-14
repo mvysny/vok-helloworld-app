@@ -3,8 +3,7 @@ package com.example.vok
 import com.vaadin.flow.component.UI
 import com.vaadin.flow.server.VaadinRequest
 import com.vaadin.flow.server.VaadinService
-import com.vaadin.flow.server.VaadinSession
-import eu.vaadinonkotlin.vaadin10.Session
+import eu.vaadinonkotlin.vaadin.Session
 import java.io.Serializable
 
 data class User(val name: String) : Serializable

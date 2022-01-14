@@ -6,7 +6,7 @@ import com.github.vokorm.dataloader.dataLoader
 import com.vaadin.flow.component.grid.Grid
 import com.vaadin.flow.data.renderer.NativeButtonRenderer
 import com.vaadin.flow.router.*
-import eu.vaadinonkotlin.vaadin10.vokdb.setDataLoader
+import eu.vaadinonkotlin.vaadin.vokdb.setDataLoader
 
 @Route("articles", layout = MainLayout::class)
 class ArticlesView: KComposite(), AfterNavigationObserver {

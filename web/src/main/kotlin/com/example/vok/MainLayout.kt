@@ -6,7 +6,7 @@ import com.vaadin.flow.component.page.Viewport
 import com.vaadin.flow.router.BeforeEnterEvent
 import com.vaadin.flow.router.BeforeEnterObserver
 import com.vaadin.flow.router.RouterLayout
-import eu.vaadinonkotlin.vaadin10.Session
+import eu.vaadinonkotlin.vaadin.Session
 
 /**
  * The main layout:

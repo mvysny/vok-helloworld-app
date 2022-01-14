@@ -3,7 +3,7 @@ package com.example.vok
 import com.github.mvysny.karibudsl.v10.*
 import com.vaadin.flow.component.login.*
 import com.vaadin.flow.router.*
-import eu.vaadinonkotlin.vaadin10.*
+import eu.vaadinonkotlin.vaadin.*
 
 @Route("login")
 class LoginView : KComposite(), BeforeEnterObserver {
