@@ -13,9 +13,9 @@ dependencies {
     implementation("eu.vaadinonkotlin:vok-framework-vokdb:${properties["vok_version"]}")
     // Vaadin 14
     implementation("com.vaadin:vaadin-core:${properties["vaadin_version"]}")
-    providedCompile("javax.servlet:javax.servlet-api:3.1.0")
+    providedCompile("javax.servlet:javax.servlet-api:4.0.1")
 
-    implementation("com.zaxxer:HikariCP:4.0.3")
+    implementation("com.zaxxer:HikariCP:5.0.1")
 
     // logging
     // currently we are logging through the SLF4J API to SLF4J-Simple. See src/main/resources/simplelogger.properties file for the logger configuration
@@ -23,8 +23,8 @@ dependencies {
     implementation("org.slf4j:slf4j-api:1.7.32")
 
     // db
-    implementation("org.flywaydb:flyway-core:8.0.1")
-    implementation("com.h2database:h2:1.4.200")
+    implementation("org.flywaydb:flyway-core:8.4.1")
+    implementation("com.h2database:h2:2.0.206")
 
     // REST
     implementation("eu.vaadinonkotlin:vok-rest:${properties["vok_version"]}")
