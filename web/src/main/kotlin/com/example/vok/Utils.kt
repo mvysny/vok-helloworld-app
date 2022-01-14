@@ -2,9 +2,7 @@ package com.example.vok
 
 import com.github.mvysny.karibudsl.v10.*
 import com.github.mvysny.kaributools.setPrimary
-import com.vaadin.flow.component.dependency.NpmPackage
 import com.vaadin.flow.component.dialog.Dialog
-import com.vaadin.shrinkwrap.VaadinCoreShrinkWrap
 
 /**
  * Shows a simple yes-no confirmation dialog, with given [text] and [title]. When user clicks the `Yes` button,
@@ -32,9 +30,3 @@ fun confirmDialog(text: String = "Are you sure?", title: String? = null, yesList
 }
 
 val jvmVersion: String get() = System.getProperty("java.version")
-val vaadinVersion: String get() {
-    val annotation: NpmPackage = checkNotNull(
-        VaadinCoreShrinkWrap::class.java.getAnnotation(NpmPackage::class.java),
-        { "We only support Vaadin 14 and higher" })
-    return annotation.version
-}
