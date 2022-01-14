@@ -2,9 +2,9 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.31"
+    kotlin("jvm") version "1.6.10"
     id("org.gretty") version "3.0.6" apply(false)
-    id("com.vaadin") version "0.14.7.3" apply(false)
+    id("com.vaadin") version "23.0.0.alpha1" apply(false)
 }
 
 defaultTasks("clean", "build")
@@ -14,6 +14,7 @@ allprojects {
     version = "1.0-SNAPSHOT"
     repositories {
         mavenCentral()
+        maven { setUrl("https://maven.vaadin.com/vaadin-prereleases") }
     }
 }
 
@@ -21,12 +22,12 @@ subprojects {
     apply { plugin("kotlin") }
 
     java {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions.jvmTarget = "11"
     }
 
     tasks.withType<Test> {
