@@ -1,5 +1,7 @@
 package com.example.vok
 
+import com.vaadin.flow.component.page.AppShellConfigurator
+import com.vaadin.flow.component.page.Viewport
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import eu.vaadinonkotlin.VaadinOnKotlin
@@ -85,3 +87,6 @@ fun Javalin.configureRest(): Javalin {
     gsonMapper(VokRest.gson)
     return this
 }
+
+@Viewport(Viewport.DEVICE_DIMENSIONS)
+class AppShell: AppShellConfigurator
