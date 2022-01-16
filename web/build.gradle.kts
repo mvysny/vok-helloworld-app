@@ -11,8 +11,10 @@ gretty {
 
 dependencies {
     implementation("eu.vaadinonkotlin:vok-framework-vokdb:${properties["vok_version"]}")
-    // Vaadin 14
-    implementation("com.vaadin:vaadin-core:${properties["vaadin_version"]}")
+    // Vaadin
+    implementation("com.vaadin:vaadin-core:${properties["vaadin_version"]}") {
+        exclude(module = "fusion-endpoint") // exclude fusion: it brings tons of dependencies (including swagger)
+    }
     providedCompile("javax.servlet:javax.servlet-api:4.0.1")
 
     implementation("com.zaxxer:HikariCP:5.0.1")
@@ -44,3 +46,6 @@ dependencies {
     testImplementation("com.github.mvysny.dynatest:dynatest-engine:0.20")
 }
 
+vaadin {
+    nodeVersion = "v16.13.2" // workaround for https://github.com/vaadin/flow/issues/12732
+}
