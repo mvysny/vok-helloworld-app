@@ -36,5 +36,5 @@ dependencies {
 }
 
 vaadin {
-    nodeVersion = "v16.13.2" // workaround for https://github.com/vaadin/flow/issues/12732
+//    nodeVersion = "v16.13.2" // workaround for https://github.com/vaadin/flow/issues/12732
 }
