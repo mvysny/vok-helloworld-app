@@ -33,7 +33,7 @@ dependencies {
 
     // db
     implementation("org.flywaydb:flyway-core:8.4.1")
-    implementation("com.h2database:h2:2.0.206")
+    implementation("com.h2database:h2:2.1.210")
 
     // REST
     implementation("eu.vaadinonkotlin:vok-rest:${properties["vok_version"]}")
