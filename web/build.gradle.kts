@@ -21,8 +21,8 @@ dependencies {
 
     // logging
     // currently we are logging through the SLF4J API to SLF4J-Simple. See src/main/resources/simplelogger.properties file for the logger configuration
-    implementation("org.slf4j:slf4j-simple:1.7.32")
-    implementation("org.slf4j:slf4j-api:1.7.32")
+    implementation("org.slf4j:slf4j-simple:1.7.36")
+    implementation("org.slf4j:slf4j-api:1.7.36")
 
     // validation
     implementation("org.hibernate.validator:hibernate-validator:6.1.4.Final") {
@@ -32,8 +32,8 @@ dependencies {
     implementation("org.glassfish:javax.el:3.0.1-b11")
 
     // db
-    implementation("org.flywaydb:flyway-core:8.4.1")
-    implementation("com.h2database:h2:2.1.210")
+    implementation("org.flywaydb:flyway-core:8.5.12")
+    implementation("com.h2database:h2:2.1.212")
 
     // REST
     implementation("eu.vaadinonkotlin:vok-rest:${properties["vok_version"]}")
@@ -46,6 +46,3 @@ dependencies {
     testImplementation("com.github.mvysny.dynatest:dynatest-engine:0.24")
 }
 
-vaadin {
-//    nodeVersion = "v16.13.2" // workaround for https://github.com/vaadin/flow/issues/12732
-}
