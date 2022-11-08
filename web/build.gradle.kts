@@ -12,9 +12,7 @@ gretty {
 dependencies {
     implementation("eu.vaadinonkotlin:vok-framework-vokdb:${properties["vok_version"]}")
     // Vaadin
-    implementation("com.vaadin:vaadin-core:${properties["vaadin_version"]}") {
-        exclude(module = "fusion-endpoint") // exclude fusion: it brings tons of dependencies (including swagger)
-    }
+    implementation("com.vaadin:vaadin-core:${properties["vaadin_version"]}")
     providedCompile("javax.servlet:javax.servlet-api:4.0.1")
 
     implementation("com.zaxxer:HikariCP:5.0.1")
