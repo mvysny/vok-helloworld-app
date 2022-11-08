@@ -5,5 +5,5 @@ build
 node_modules
 vite.generated.ts
 target
-web/frontend/generated
+frontend/generated
 .npmrc
