@@ -6,7 +6,7 @@
 Template for a simple Vaadin-on-Kotlin Vaadin 14-based application that only
 requires Java JDK to run. Just clone this repo and start building your awesome app!
 
-You'll start with this app when you follow the [Getting Started tutorial](http://www.vaadinonkotlin.eu/gettingstarted-v10.html).
+You'll start with this app when you follow the [Getting Started tutorial](https://www.vaadinonkotlin.eu/tutorial/).
 
 # Documentation
 
