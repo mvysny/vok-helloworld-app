@@ -2,14 +2,8 @@
 build
 .gradle
 *.iml
-styles.css
-styles.css.gz
-classes
-out
 node_modules
-webpack.generated.js
-/node
+vite.generated.ts
 target
 web/frontend/generated
 .npmrc
-
