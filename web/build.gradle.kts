@@ -1,19 +1,13 @@
 plugins {
-    war
-    id("org.gretty")
+    application
     id("com.vaadin")
 }
 
-gretty {
-    contextPath = "/"
-    servletContainer = "jetty9.4"
-}
-
 dependencies {
-    implementation("eu.vaadinonkotlin:vok-framework-vokdb:${properties["vok_version"]}")
     // Vaadin
+    implementation("eu.vaadinonkotlin:vok-framework-vokdb:${properties["vok_version"]}")
     implementation("com.vaadin:vaadin-core:${properties["vaadin_version"]}")
-    providedCompile("javax.servlet:javax.servlet-api:4.0.1")
+    implementation("com.github.mvysny.vaadin-boot:vaadin-boot:10.1")
 
     implementation("com.zaxxer:HikariCP:5.0.1")
 
@@ -43,3 +37,6 @@ dependencies {
     testImplementation("com.github.mvysny.dynatest:dynatest-engine:0.24")
 }
 
+application {
+    mainClass.set("com.example.vok.MainKt")
+}
