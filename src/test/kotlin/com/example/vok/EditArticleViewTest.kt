@@ -17,7 +17,7 @@ class EditArticleViewTest : DynaTest({
         EditArticleView.navigateTo(article.id!!)
         _expectOne<EditArticleView>()
         _expectOne<ArticleEditor>()
-        expect("Test Test") { _get<TextField> { caption = "Title" } .value }
-        expect("Hello World!") { _get<TextArea> { caption = "Text" } .value }
+        expect("Test Test") { _get<TextField> { label = "Title" } .value }
+        expect("Hello World!") { _get<TextArea> { label = "Text" } .value }
     }
 })

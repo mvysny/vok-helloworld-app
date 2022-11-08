@@ -33,7 +33,7 @@ class ArticlesViewTest : DynaTest({
         grid._clickRenderer(0, "destroy")
         // a confirm dialog should be displayed
         _expectOne<Dialog>()
-        _get<Button> { caption = "Yes" } ._click()
+        _get<Button> { text = "Yes" } ._click()
         expectList() { Article.findAll() }
     }
 })

@@ -35,4 +35,4 @@ class LoginService : Serializable {
     val isLoggedIn get() = currentUser != null
 }
 
-val Session.loginService: LoginService get() = getOrPut { LoginService() }
+val Session.loginService: LoginService get() = getOrPut(LoginService::class) { LoginService() }

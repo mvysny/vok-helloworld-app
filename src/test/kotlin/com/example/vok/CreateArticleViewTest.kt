@@ -23,9 +23,9 @@ class CreateArticleViewTest : DynaTest({
 
     test("successful create") {
         navigateTo<CreateArticleView>()
-        _get<TextField> { caption = "Title" }._value = "Article Name"
-        _get<TextArea> { caption = "Text" }._value = "Article Name"
-        _get<Button> { caption = "Save Article" }._click()
+        _get<TextField> { label = "Title" }._value = "Article Name"
+        _get<TextArea> { label = "Text" }._value = "Article Name"
+        _get<Button> { text = "Save Article" }._click()
         val articles = Article.findAll()
         expect(1) { articles.size }
     }

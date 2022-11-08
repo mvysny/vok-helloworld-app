@@ -5,7 +5,6 @@ import com.github.mvysny.kaributesting.v10._click
 import com.github.mvysny.kaributesting.v10._get
 import com.github.mvysny.kaributesting.v10._value
 import com.github.mvysny.kaributesting.v10.expectView
-import com.github.vokorm.findAll
 import com.vaadin.flow.component.button.Button
 import com.vaadin.flow.component.textfield.TextArea
 import com.vaadin.flow.component.textfield.TextField
@@ -23,16 +22,16 @@ class ArticleEditorTest : DynaTest({
         val a = Article(title = "Foo", text = "Bar")
         val editor = ArticleEditor()
         editor.article = a
-        expect("Foo") { editor._get<TextField> { caption = "Title" }._value }
+        expect("Foo") { editor._get<TextField> { label = "Title" }._value }
         expect("Bar") { editor._get<TextArea>()._value }
     }
 
     test("save succeeds if article is valid") {
         val editor = ArticleEditor()
         editor.article = Article()
-        editor._get<TextField> { caption = "Title" }._value = "My Article"
+        editor._get<TextField> { label = "Title" }._value = "My Article"
         editor._get<TextArea>()._value = "The body of the article"
-        editor._get<Button> { caption = "Save Article" }._click()
+        editor._get<Button> { text = "Save Article" }._click()
         val articles = Article.findAll()
         expect(1) { articles.size }
         expect("My Article") { articles[0].title }
@@ -42,10 +41,10 @@ class ArticleEditorTest : DynaTest({
     test("save not performed on invalid input") {
         val editor = ArticleEditor()
         editor.article = Article()
-        val titleField = editor._get<TextField> { caption = "Title" }
+        val titleField = editor._get<TextField> { label = "Title" }
         titleField._value = "Foo"
         editor._get<TextArea>()._value = "The body of the article"
-        val saveArticle = editor._get<Button> { caption = "Save Article" }
+        val saveArticle = editor._get<Button> { text = "Save Article" }
         saveArticle._click()
         val articles = Article.findAll()
         expect(0) { articles.size }
