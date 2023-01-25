@@ -29,7 +29,6 @@
     "@vaadin/email-field": "23.2.8",
     "@vaadin/field-base": "23.2.8",
     "@vaadin/field-highlighter": "23.2.8",
-    "@vaadin/flow-frontend": "./build/flow-frontend",
     "@vaadin/form-layout": "23.2.8",
     "@vaadin/grid": "23.2.8",
     "@vaadin/horizontal-layout": "23.2.8",
@@ -105,7 +104,7 @@
     "@vaadin/virtual-list": "23.2.8",
     "construct-style-sheets-polyfill": "3.1.0",
     "date-fns": "2.29.3",
-    "lit": "2.3.0"
+    "lit": "2.6.1"
   },
   "devDependencies": {
     "@rollup/plugin-replace": "3.1.0",
@@ -116,12 +115,12 @@
     "rollup-plugin-brotli": "3.1.0",
     "strip-css-comments": "5.0.0",
     "transform-ast": "2.4.4",
-    "typescript": "4.7.4",
-    "vite": "v3.1.0",
-    "vite-plugin-checker": "0.4.9",
-    "workbox-build": "6.5.0",
-    "workbox-core": "6.5.0",
-    "workbox-precaching": "6.5.0"
+    "typescript": "4.9.3",
+    "vite": "3.2.5",
+    "vite-plugin-checker": "0.5.1",
+    "workbox-build": "6.5.4",
+    "workbox-core": "6.5.4",
+    "workbox-precaching": "6.5.4"
   },
   "vaadin": {
     "dependencies": {
@@ -227,7 +226,7 @@
       "@vaadin/virtual-list": "23.2.8",
       "construct-style-sheets-polyfill": "3.1.0",
       "date-fns": "2.29.3",
-      "lit": "2.3.0"
+      "lit": "2.6.1"
     },
     "devDependencies": {
       "@rollup/plugin-replace": "3.1.0",
@@ -238,14 +237,14 @@
       "rollup-plugin-brotli": "3.1.0",
       "strip-css-comments": "5.0.0",
       "transform-ast": "2.4.4",
-      "typescript": "4.7.4",
-      "vite": "v3.1.0",
-      "vite-plugin-checker": "0.4.9",
-      "workbox-build": "6.5.0",
-      "workbox-core": "6.5.0",
-      "workbox-precaching": "6.5.0"
+      "typescript": "4.9.3",
+      "vite": "3.2.5",
+      "vite-plugin-checker": "0.5.1",
+      "workbox-build": "6.5.4",
+      "workbox-core": "6.5.4",
+      "workbox-precaching": "6.5.4"
     },
-    "hash": "c1b98192ddb1e41e91da63442c4f8d8bbcf363ea49231c0c6388eb9432806b0e"
+    "hash": "a7e10f75e95c53fcafce34f4e7828c372d74b8512d99867160ecf18a55723de4"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
