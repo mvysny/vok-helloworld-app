@@ -7,3 +7,6 @@ vite.generated.ts
 target
 frontend/generated
 .npmrc
+
+!**/src/main/dev-bundle/webapp/VAADIN/build
+
