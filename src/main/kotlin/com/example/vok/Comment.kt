@@ -3,7 +3,7 @@ package com.example.vok
 import com.github.vokorm.*
 import com.gitlab.mvysny.jdbiorm.Dao
 import org.hibernate.validator.constraints.Length
-import javax.validation.constraints.NotNull
+import jakarta.validation.constraints.NotNull
 
 data class Comment(
     override var id: Long? = null,

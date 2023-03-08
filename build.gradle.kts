@@ -26,11 +26,9 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:2.0.6")
 
     // validation
-    implementation("org.hibernate.validator:hibernate-validator:6.1.4.Final") {
-        exclude(module = "jakarta.validation-api")
-    }
+    implementation("org.hibernate.validator:hibernate-validator:8.0.0.Final")
     // EL is required: http://hibernate.org/validator/documentation/getting-started/
-    implementation("org.glassfish:javax.el:3.0.1-b11")
+    implementation("org.glassfish:jakarta.el:4.0.2")
 
     // db
     implementation("org.flywaydb:flyway-core:9.15.2")
@@ -43,7 +41,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
     // test support
-    testImplementation("com.github.mvysny.kaributesting:karibu-testing-v10:1.3.21")
+    testImplementation("com.github.mvysny.kaributesting:karibu-testing-v23:2.0.2")
     testImplementation("com.github.mvysny.dynatest:dynatest-engine:0.24")
 }
 
