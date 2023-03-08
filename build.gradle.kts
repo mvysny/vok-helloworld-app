@@ -23,10 +23,10 @@ dependencies {
 
     // logging
     // currently we are logging through the SLF4J API to SLF4J-Simple. See src/main/resources/simplelogger.properties file for the logger configuration
-    implementation("org.slf4j:slf4j-simple:2.0.4")
+    implementation("org.slf4j:slf4j-simple:2.0.6")
 
     // db
-    implementation("org.flywaydb:flyway-core:9.5.1")
+    implementation("org.flywaydb:flyway-core:9.15.2")
     implementation("com.h2database:h2:2.1.214")
 
     // REST
