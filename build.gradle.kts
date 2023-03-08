@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.8.0"
-    id("com.vaadin") version "23.3.5"
+    id("com.vaadin") version "24.0.0"
     application
 }
 
@@ -17,7 +17,7 @@ dependencies {
     // Vaadin
     implementation("eu.vaadinonkotlin:vok-framework-vokdb:${properties["vok_version"]}")
     implementation("com.vaadin:vaadin-core:${properties["vaadin_version"]}")
-    implementation("com.github.mvysny.vaadin-boot:vaadin-boot:10.3")
+    implementation("com.github.mvysny.vaadin-boot:vaadin-boot:11.0")
 
     implementation("com.zaxxer:HikariCP:5.0.1")
 
