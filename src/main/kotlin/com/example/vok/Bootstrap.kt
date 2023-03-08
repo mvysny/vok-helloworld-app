@@ -9,17 +9,17 @@ import eu.vaadinonkotlin.rest.VokRest
 import eu.vaadinonkotlin.rest.gsonMapper
 import eu.vaadinonkotlin.vokdb.dataSource
 import io.javalin.Javalin
-import io.javalin.http.JavalinServlet
+import io.javalin.http.servlet.JavalinServlet
 import org.flywaydb.core.Flyway
 import org.h2.Driver
 import org.slf4j.LoggerFactory
-import javax.servlet.ServletContextEvent
-import javax.servlet.ServletContextListener
-import javax.servlet.annotation.WebListener
-import javax.servlet.annotation.WebServlet
-import javax.servlet.http.HttpServlet
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
+import jakarta.servlet.ServletContextEvent
+import jakarta.servlet.ServletContextListener
+import jakarta.servlet.annotation.WebListener
+import jakarta.servlet.annotation.WebServlet
+import jakarta.servlet.http.HttpServlet
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
 
 /**
  * Called by the Servlet Container to bootstrap your app. We need to bootstrap the Vaadin-on-Kotlin framework,
