@@ -16,7 +16,13 @@ repositories {
 dependencies {
     // Vaadin
     implementation("eu.vaadinonkotlin:vok-framework-vokdb:${properties["vok_version"]}")
-    implementation("com.vaadin:vaadin-core:${properties["vaadin_version"]}")
+    implementation("com.vaadin:vaadin-core:${properties["vaadin_version"]}") {
+        afterEvaluate {
+            if (vaadin.productionMode) {
+                exclude(module = "vaadin-dev")
+            }
+        }
+    }
     implementation("com.github.mvysny.vaadin-boot:vaadin-boot:11.0")
 
     implementation("com.zaxxer:HikariCP:5.0.1")
