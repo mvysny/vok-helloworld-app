@@ -23,7 +23,7 @@ dependencies {
             }
         }
     }
-    implementation("com.github.mvysny.vaadin-boot:vaadin-boot:11.0")
+    implementation("com.github.mvysny.vaadin-boot:vaadin-boot:11.1")
 
     implementation("com.zaxxer:HikariCP:5.0.1")
 
