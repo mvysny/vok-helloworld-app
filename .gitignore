@@ -2,11 +2,8 @@
 build
 .gradle
 *.iml
-node_modules
-vite.generated.ts
 target
 frontend/generated
-.npmrc
 
 !**/src/main/dev-bundle/webapp/VAADIN/build
 
