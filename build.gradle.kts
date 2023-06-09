@@ -2,8 +2,8 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.8.0"
-    id("com.vaadin") version "24.0.0"
+    kotlin("jvm") version "1.8.21"
+    id("com.vaadin") version "24.1.0"
     application
 }
 
@@ -16,8 +16,14 @@ repositories {
 dependencies {
     // Vaadin
     implementation("eu.vaadinonkotlin:vok-framework-vokdb:${properties["vok_version"]}")
-    implementation("com.vaadin:vaadin-core:${properties["vaadin_version"]}")
-    implementation("com.github.mvysny.vaadin-boot:vaadin-boot:11.0")
+    implementation("com.vaadin:vaadin-core:${properties["vaadin_version"]}") {
+        afterEvaluate {
+            if (vaadin.productionMode) {
+                exclude(module = "vaadin-dev")
+            }
+        }
+    }
+    implementation("com.github.mvysny.vaadin-boot:vaadin-boot:11.3")
 
     implementation("com.zaxxer:HikariCP:5.0.1")
 
