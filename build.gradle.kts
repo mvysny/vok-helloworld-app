@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.8.21"
-    id("com.vaadin") version "24.1.0"
+    id("com.vaadin")
     application
 }
 
