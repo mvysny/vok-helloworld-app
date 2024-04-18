@@ -1,5 +1,6 @@
 package com.example.vok
 
+import com.github.mvysny.kaributools.fetchAll
 import io.javalin.Javalin
 import io.javalin.http.NotFoundResponse
 
@@ -12,6 +13,6 @@ fun Javalin.articleRest() {
     get("/rest/articles/:id/comments") { ctx ->
         val id = ctx.pathParam("id").toLong()
         val article = Article.findById(id) ?: throw NotFoundResponse("No article with id $id")
-        ctx.json(article.comments.fetch())
+        ctx.json(article.comments.fetchAll())
     }
 }

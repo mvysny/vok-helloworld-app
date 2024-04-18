@@ -1,12 +1,15 @@
 package com.example.vok
 
-import com.github.mvysny.vokdataloader.DataLoader
-import com.github.mvysny.vokdataloader.withFilter
-import com.github.vokorm.*
-import com.github.vokorm.dataloader.dataLoader
+import com.github.vokorm.KEntity
+import com.github.vokorm.buildCondition
+import com.github.vokorm.db
+import com.github.vokorm.deleteBy
 import com.gitlab.mvysny.jdbiorm.Dao
-import org.hibernate.validator.constraints.Length
+import com.gitlab.mvysny.jdbiorm.condition.Condition
+import com.vaadin.flow.data.provider.DataProvider
+import eu.vaadinonkotlin.vaadin.vokdb.dataProvider
 import jakarta.validation.constraints.NotNull
+import org.hibernate.validator.constraints.Length
 
 data class Article(
     override var id: Long? = null,
@@ -21,7 +24,7 @@ data class Article(
 ) : KEntity<Long> {
     companion object : Dao<Article, Long>(Article::class.java)
 
-    val comments: DataLoader<Comment> get() = Comment.dataLoader.withFilter { Comment::article_id eq id }
+    val comments: DataProvider<Comment, Condition> get() = Comment.dataProvider.apply { filter = buildCondition<Comment> { Comment::article_id eq id } }
 
     override fun delete() = db {
         Comment.deleteBy { Comment::article_id eq id }

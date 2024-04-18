@@ -1,6 +1,7 @@
 package com.example.vok
 
 import com.github.mvysny.karibudsl.v10.*
+import com.github.mvysny.kaributools.fetchAll
 import com.vaadin.flow.component.HasComponents
 import com.vaadin.flow.component.button.ButtonVariant
 import com.vaadin.flow.component.orderedlayout.VerticalLayout
@@ -20,7 +21,7 @@ class CommentsComponent : KComposite() {
 
     fun refresh() {
         comments.removeAll()
-        Article.getById(articleId).comments.fetch().forEach { comment ->
+        Article.getById(articleId).comments.fetchAll().forEach { comment ->
             comments.apply {
                 div {
                     html("<p><strong>Commenter:</strong>${comment.commenter}</p><p><strong>Comment:</strong>${comment.body}</p>")
