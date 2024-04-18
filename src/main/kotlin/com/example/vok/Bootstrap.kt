@@ -1,14 +1,13 @@
 package com.example.vok
 
+import com.gitlab.mvysny.jdbiorm.JdbiOrm
 import com.vaadin.flow.component.page.AppShellConfigurator
 import com.vaadin.flow.component.page.Viewport
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import eu.vaadinonkotlin.VaadinOnKotlin
 import eu.vaadinonkotlin.rest.VokRest
-import eu.vaadinonkotlin.rest.configureToJavalin
 import eu.vaadinonkotlin.rest.gsonMapper
-import eu.vaadinonkotlin.vokdb.dataSource
 import io.javalin.Javalin
 import io.javalin.http.servlet.JavalinServlet
 import org.flywaydb.core.Flyway
@@ -41,7 +40,7 @@ class Bootstrap: ServletContextListener {
             username = "sa"
             password = ""
         }
-        VaadinOnKotlin.dataSource = HikariDataSource(cfg)
+        JdbiOrm.setDataSource(HikariDataSource(cfg))
 
         // Initializes the VoK framework
         log.info("Initializing VaadinOnKotlin")
@@ -50,7 +49,7 @@ class Bootstrap: ServletContextListener {
         // Makes sure the database is up-to-date
         log.info("Running DB migrations")
         val flyway = Flyway.configure()
-            .dataSource(VaadinOnKotlin.dataSource)
+            .dataSource(JdbiOrm.getDataSource())
             .load()
         flyway.migrate()
         log.info("Initialization complete")
@@ -74,9 +73,7 @@ class Bootstrap: ServletContextListener {
  */
 @WebServlet(urlPatterns = ["/rest/*"], name = "JavalinRestServlet", asyncSupported = false)
 class JavalinRestServlet : HttpServlet() {
-    val javalin: JavalinServlet = Javalin.createStandalone()
-            .configureRest()
-            .javalinServlet()
+    val javalin: JavalinServlet = Javalin.createStandalone { it.gsonMapper(VokRest.gson) } .configureRest().javalinServlet()
 
     override fun service(req: HttpServletRequest, resp: HttpServletResponse) {
         javalin.service(req, resp)
@@ -84,7 +81,6 @@ class JavalinRestServlet : HttpServlet() {
 }
 
 fun Javalin.configureRest(): Javalin {
-    gsonMapper(VokRest.gson)
     return this
 }
 
