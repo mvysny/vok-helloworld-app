@@ -18,11 +18,11 @@ fun confirmDialog(text: String = "Are you sure?", title: String? = null, yesList
         text(text)
         horizontalLayout {
             button("Yes") {
-                onLeftClick { yesListener(); window.close() }
+                onClick { yesListener(); window.close() }
                 setPrimary()
             }
             button("No") {
-                onLeftClick { window.close() }
+                onClick { window.close() }
             }
         }
     }
