@@ -30,9 +30,9 @@ dependencies {
     implementation(libs.slf4j.simple)
 
     // validation
-    implementation("org.hibernate.validator:hibernate-validator:8.0.0.Final")
+    implementation(libs.hibernate.validator)
     // EL is required: http://hibernate.org/validator/documentation/getting-started/
-    implementation("org.glassfish:jakarta.el:4.0.2")
+    implementation(libs.jakarta.el)
 
     // db
     implementation(libs.flyway)
@@ -45,8 +45,8 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
     // test support
-    testImplementation("com.github.mvysny.kaributesting:karibu-testing-v23:2.0.2")
-    testImplementation("com.github.mvysny.dynatest:dynatest-engine:0.24")
+    testImplementation(libs.kaributesting)
+    testImplementation(libs.junit)
 }
 
 java {

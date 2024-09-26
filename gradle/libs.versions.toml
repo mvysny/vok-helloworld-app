@@ -17,6 +17,8 @@ vok-rest = {module = "eu.vaadinonkotlin:vok-rest", version.ref = "vok" }
 flyway = "org.flywaydb:flyway-core:10.15.2"
 h2 = "com.h2database:h2:2.2.224"
 hikaricp = "com.zaxxer:HikariCP:5.1.0"
+hibernate-validator = "org.hibernate.validator:hibernate-validator:8.0.1.Final"
+jakarta-el = "org.glassfish:jakarta.el:4.0.2"
 
 [plugins]
 vaadin = { id = "com.vaadin", version.ref = "vaadin" }
