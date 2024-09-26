@@ -9,7 +9,7 @@ import kotlin.test.expect
 
 class EditArticleViewTest : DynaTest({
     usingApp()
-    beforeEach { login() }
+    beforeEach { loginAdmin() }
 
     test("smoke") {
         val article = Article(title = "Test Test", text = "Hello World!")

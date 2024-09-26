@@ -6,7 +6,7 @@ import com.github.mvysny.kaributools.navigateTo
 
 class WelcomeViewTest : DynaTest({
     usingApp()
-    beforeEach { login() }
+    beforeEach { loginAdmin() }
 
     test("smoke") {
         navigateTo<WelcomeView>()

@@ -1,13 +1,11 @@
 package com.example.vok
 
-import com.github.mvysny.dynatest.DynaTest
+import org.junit.jupiter.api.Test
 import kotlin.test.expect
 
-class CommentsComponentTest : DynaTest({
-    usingApp()
-
-    test("smoke") {
+class CommentsComponentTest : AbstractAppTest() {
+    @Test fun smoke() {
         val component = CommentsComponent()
         expect(0) { component.comments.componentCount }
     }
-})
+}

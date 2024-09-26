@@ -1,6 +1,5 @@
 package com.example.vok
 
-import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.kaributesting.v10._click
 import com.github.mvysny.kaributesting.v10._get
 import com.github.mvysny.kaributesting.v10._value
@@ -9,16 +8,17 @@ import com.vaadin.flow.component.button.Button
 import com.vaadin.flow.component.textfield.TextArea
 import com.vaadin.flow.component.textfield.TextField
 import com.vaadin.flow.router.RouterLink
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import kotlin.test.expect
 
-class ArticleEditorTest : DynaTest({
-    usingApp()
-    beforeEach { login() }
+class ArticleEditorTest : AbstractAppTest() {
+    @BeforeEach fun login() { loginAdmin() }
 
-    test("smoke") {
+    @Test fun smoke() {
         ArticleEditor()
     }
-    test("populate fields") {
+    @Test fun `populate fields`() {
         val a = Article(title = "Foo", text = "Bar")
         val editor = ArticleEditor()
         editor.article = a
@@ -26,7 +26,7 @@ class ArticleEditorTest : DynaTest({
         expect("Bar") { editor._get<TextArea>()._value }
     }
 
-    test("save succeeds if article is valid") {
+    @Test fun `save succeeds if article is valid`() {
         val editor = ArticleEditor()
         editor.article = Article()
         editor._get<TextField> { label = "Title" }._value = "My Article"
@@ -38,7 +38,7 @@ class ArticleEditorTest : DynaTest({
         expect("The body of the article") { articles[0].text }
     }
 
-    test("save not performed on invalid input") {
+    @Test fun `save not performed on invalid input`() {
         val editor = ArticleEditor()
         editor.article = Article()
         val titleField = editor._get<TextField> { label = "Title" }
@@ -51,9 +51,9 @@ class ArticleEditorTest : DynaTest({
         expect("length must be between 5 and 2147483647") { titleField.errorMessage }
     }
 
-    test("go back") {
+    @Test fun `go back`() {
         val editor = ArticleEditor()
         editor._get<RouterLink> { text = "Back" } ._click()
         expectView<ArticlesView>()
     }
-})
+}
