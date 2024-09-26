@@ -2,8 +2,8 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.9.23"
-    id("com.vaadin")
+    kotlin("jvm") version "2.0.20"
+    alias(libs.plugins.vaadin)
     application
 }
 
@@ -15,21 +15,19 @@ repositories {
 
 dependencies {
     // Vaadin
-    implementation("eu.vaadinonkotlin:vok-framework-vokdb:${properties["vok_version"]}")
-    implementation("com.vaadin:vaadin-core:${properties["vaadin_version"]}") {
-        afterEvaluate {
-            if (vaadin.effective.productionMode.get()) {
-                exclude(module = "vaadin-dev")
-            }
+    implementation(libs.vok.db)
+    implementation(libs.vaadin.core) {
+        if (vaadin.effective.productionMode.get()) {
+            exclude(module = "vaadin-dev")
         }
     }
-    implementation("com.github.mvysny.vaadin-boot:vaadin-boot:12.2")
+    implementation(libs.vaadin.boot)
 
-    implementation("com.zaxxer:HikariCP:5.1.0")
+    implementation(libs.hikaricp)
 
     // logging
     // currently we are logging through the SLF4J API to SLF4J-Simple. See src/main/resources/simplelogger.properties file for the logger configuration
-    implementation("org.slf4j:slf4j-simple:2.0.12")
+    implementation(libs.slf4j.simple)
 
     // validation
     implementation("org.hibernate.validator:hibernate-validator:8.0.0.Final")
@@ -37,11 +35,11 @@ dependencies {
     implementation("org.glassfish:jakarta.el:4.0.2")
 
     // db
-    implementation("org.flywaydb:flyway-core:10.11.0")
-    implementation("com.h2database:h2:2.2.224")
+    implementation(libs.flyway)
+    implementation(libs.h2)
 
     // REST
-    implementation("eu.vaadinonkotlin:vok-rest:${properties["vok_version"]}")
+    implementation(libs.vok.rest)
 
     // Kotlin
     implementation(kotlin("stdlib-jdk8"))
