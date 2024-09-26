@@ -14,7 +14,7 @@ junit = "org.junit.jupiter:junit-jupiter-engine:5.11.0"
 kaributesting = "com.github.mvysny.kaributesting:karibu-testing-v24:2.1.8"
 vok-db = { module = "eu.vaadinonkotlin:vok-framework-vokdb", version.ref = "vok" }
 vok-rest = {module = "eu.vaadinonkotlin:vok-rest", version.ref = "vok" }
-flyway = "org.flywaydb:flyway-core:10.15.8"
+flyway = "org.flywaydb:flyway-core:10.15.2"
 h2 = "com.h2database:h2:2.2.224"
 hikaricp = "com.zaxxer:HikariCP:5.1.0"
 
