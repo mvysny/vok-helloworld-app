@@ -19,7 +19,7 @@ class NewCommentForm : KComposite() {
                 bind(commentBinder).bind(Comment::body)
             }
             createComment = button("Create") {
-                onLeftClick { createComment() }
+                onClick { createComment() }
             }
         }
     }

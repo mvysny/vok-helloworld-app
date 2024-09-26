@@ -21,7 +21,7 @@ class ArticleEditor : KComposite() {
                 bind(binder).bind(Article::text)
             }
             button("Save Article") {
-                onLeftClick {
+                onClick {
                     val article = article!!
                     if (binder.validate().isOk && binder.writeBeanIfValid(article)) {
                         article.save()

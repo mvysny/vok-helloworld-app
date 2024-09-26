@@ -28,7 +28,7 @@ class CommentsComponent : KComposite() {
                 }
                 button("Delete comment") {
                     addThemeVariants(ButtonVariant.LUMO_TERTIARY, ButtonVariant.LUMO_SMALL)
-                    onLeftClick { comment.delete(); refresh() }
+                    onClick { comment.delete(); refresh() }
                 }
             }
         }
