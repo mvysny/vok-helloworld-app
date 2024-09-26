@@ -48,6 +48,7 @@ dependencies {
     // test support
     testImplementation(libs.kaributesting)
     testImplementation(libs.junit)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 java {
