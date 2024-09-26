@@ -1,11 +1,9 @@
 package com.example.vok
 
-import com.github.mvysny.dynatest.DynaTest
+import org.junit.jupiter.api.Test
 
-class NewCommentFormTest : DynaTest({
-    usingApp()
-
-    test("smoke") {
+class NewCommentFormTest : AbstractAppTest() {
+    @Test fun smoke() {
         NewCommentForm()
     }
-})
+}

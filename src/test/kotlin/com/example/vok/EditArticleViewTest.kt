@@ -1,17 +1,17 @@
 package com.example.vok
 
-import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.kaributesting.v10._expectOne
 import com.github.mvysny.kaributesting.v10._get
 import com.vaadin.flow.component.textfield.TextArea
 import com.vaadin.flow.component.textfield.TextField
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import kotlin.test.expect
 
-class EditArticleViewTest : DynaTest({
-    usingApp()
-    beforeEach { loginAdmin() }
+class EditArticleViewTest : AbstractAppTest() {
+    @BeforeEach fun login() { loginAdmin() }
 
-    test("smoke") {
+    @Test fun smoke() {
         val article = Article(title = "Test Test", text = "Hello World!")
         article.save()
         EditArticleView.navigateTo(article.id!!)
@@ -20,4 +20,4 @@ class EditArticleViewTest : DynaTest({
         expect("Test Test") { _get<TextField> { label = "Title" } .value }
         expect("Hello World!") { _get<TextArea> { label = "Text" } .value }
     }
-})
+}

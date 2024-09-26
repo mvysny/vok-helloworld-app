@@ -1,14 +1,14 @@
 package com.example.vok
 
-import com.github.mvysny.dynatest.DynaTest
 import com.github.mvysny.kaributesting.v10._expectOne
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
-class MyWelcomeViewTest : DynaTest({
-    usingApp()
-    beforeEach { loginAdmin() }
+class MyWelcomeViewTest : AbstractAppTest() {
+    @BeforeEach fun login() { loginAdmin() }
 
-    test("smoke") {
+    @Test fun smoke() {
         // test that the app by default navigates to MyWelcomeView
         _expectOne<MyWelcomeView>()
     }
-})
+}
