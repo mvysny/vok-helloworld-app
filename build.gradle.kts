@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "2.0.20"
+    kotlin("jvm") version "2.1.10"
     alias(libs.plugins.vaadin)
     application
 }
@@ -36,9 +36,6 @@ dependencies {
 
     // REST
     implementation(libs.vok.rest)
-
-    // Kotlin
-    implementation(kotlin("stdlib-jdk8"))
 }
 
 java {
