@@ -13,20 +13,21 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - name: Set up JDK ${{ matrix.java }}
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v3
       with:
         java-version: ${{ matrix.java }}
+        distribution: 'temurin'
     - name: Cache Gradle packages
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: |
           ~/.gradle/caches
           ~/.gradle/wrapper
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties', 'gradle.properties') }}
     - name: Cache pnpm packages
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: |
           ~/.vaadin
