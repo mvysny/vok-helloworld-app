@@ -1,7 +1,7 @@
 [versions]
-vaadin = "24.6.4"
+vaadin = "24.9.5"
 # https://repo1.maven.org/maven2/org/slf4j/slf4j-api/
-slf4j = "2.0.16"
+slf4j = "2.0.17"
 vok = "0.18.1"
 
 [libraries]
@@ -11,7 +11,7 @@ jetbrains-annotations = "org.jetbrains:annotations:24.1.0"
 vaadin-boot = "com.github.mvysny.vaadin-boot:vaadin-boot:13.3"
 vaadin-core = { module = "com.vaadin:vaadin-core", version.ref = "vaadin" }
 junit = "org.junit.jupiter:junit-jupiter-engine:5.11.0"
-kaributesting = "com.github.mvysny.kaributesting:karibu-testing-v24:2.2.0"
+kaributesting = "com.github.mvysny.kaributesting:karibu-testing-v24:2.4.2"
 vok-db = { module = "eu.vaadinonkotlin:vok-framework-vokdb", version.ref = "vok" }
 vok-rest = {module = "eu.vaadinonkotlin:vok-rest", version.ref = "vok" }
 flyway = "org.flywaydb:flyway-core:10.15.2"
