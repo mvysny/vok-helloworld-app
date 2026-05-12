@@ -35,6 +35,11 @@ dependencies {
 
     // REST
     implementation(libs.vok.rest)
+
+    // tests
+    testImplementation(libs.junit)
+    testImplementation(libs.kaributesting)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 java {
