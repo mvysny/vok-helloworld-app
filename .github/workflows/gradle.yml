@@ -19,13 +19,8 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
         distribution: 'temurin'
-    - name: Cache Gradle packages
-      uses: actions/cache@v5
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties', 'gradle.properties') }}
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@v6
     - name: Cache pnpm packages
       uses: actions/cache@v5
       with:
@@ -34,4 +29,4 @@ jobs:
           ~/.pnpm-store
         key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml', '**/package.json') }}
     - name: Build with Gradle
-      run: ./gradlew clean build '-Pvaadin.productionMode' --stacktrace --info --no-daemon
+      run: ./gradlew clean build '-Pvaadin.productionMode' --no-daemon --no-watch-fs
