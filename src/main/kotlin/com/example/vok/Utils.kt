@@ -29,4 +29,3 @@ fun confirmDialog(text: String = "Are you sure?", title: String? = null, yesList
     window.open()
 }
 
-val jvmVersion: String get() = System.getProperty("java.version")

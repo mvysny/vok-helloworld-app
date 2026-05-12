@@ -1,11 +1,11 @@
 package com.example.vok
 
-import com.gitlab.mvysny.jdbiorm.JdbiOrm
 import com.vaadin.flow.component.page.AppShellConfigurator
 import com.vaadin.flow.component.page.Viewport
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import eu.vaadinonkotlin.VaadinOnKotlin
+import eu.vaadinonkotlin.vaadin.vokdb.dataSource
 import eu.vaadinonkotlin.rest.VokRest
 import eu.vaadinonkotlin.rest.gsonMapper
 import io.javalin.Javalin
@@ -40,7 +40,7 @@ class Bootstrap: ServletContextListener {
             username = "sa"
             password = ""
         }
-        JdbiOrm.setDataSource(HikariDataSource(cfg))
+        VaadinOnKotlin.dataSource = HikariDataSource(cfg)
 
         // Initializes the VoK framework
         log.info("Initializing VaadinOnKotlin")
@@ -49,7 +49,7 @@ class Bootstrap: ServletContextListener {
         // Makes sure the database is up-to-date
         log.info("Running DB migrations")
         val flyway = Flyway.configure()
-            .dataSource(JdbiOrm.getDataSource())
+            .dataSource(VaadinOnKotlin.dataSource)
             .load()
         flyway.migrate()
         log.info("Initialization complete")

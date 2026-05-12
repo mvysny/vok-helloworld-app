@@ -1,21 +1,26 @@
 [![Powered By Vaadin on Kotlin](http://vaadinonkotlin.eu/iconography/vok_badge.svg)](http://vaadinonkotlin.eu)
 [![Build Status](https://github.com/mvysny/vok-helloworld-app/actions/workflows/gradle.yml/badge.svg)](https://github.com/mvysny/vok-helloworld-app/actions/workflows/gradle.yml)
 
-# Vaadin-on-Kotlin Example App / Archetype
+# BoltShop — VoK Getting Started
 
-Template for a simple Vaadin-on-Kotlin-based application that only
-requires Java JDK to run. Just clone this repo and start building your awesome app!
+This is the starting point for the [Vaadin-on-Kotlin Getting Started tutorial](https://www.vaadinonkotlin.eu/tutorial/).
+Across the tutorial chapters you'll build **BoltShop**: a back-office product catalog screen
+for a small neighborhood hardware store. The finished app is a single-page master-detail
+view with a filterable `Grid<Product>`, edit-in-place form, add dialog, low-stock badge,
+Karibu-Testing coverage, and a small REST API.
 
-You'll start with this app when you follow the [Getting Started tutorial](https://www.vaadinonkotlin.eu/tutorial/).
+Out of the box `master` is just the framework wired up — Vaadin Boot, Karibu-DSL,
+H2 + Flyway + ktorm (via `vok-db`), and a minimal `WelcomeView`. No entities, no
+migrations, no domain code yet. You build all of it as you work through the chapters.
 
-Requires Java 17+.
+Requires Java 21+.
 
-# Documentation
+# Build & run
 
-Please see the [Vaadin Boot](https://github.com/mvysny/vaadin-boot#preparing-environment) documentation
-on how you run, develop and package this Vaadin-Boot-based app.
+Standard [Vaadin Boot](https://github.com/mvysny/vaadin-boot) project:
 
-## The 'complete' sources
+- `./gradlew run` — dev mode, embedded Jetty
+- `./gradlew build` — full build incl. production bundle
+- `./gradlew test` — JUnit 5 tests
 
-You can switch the git branch from 'master' to ['complete'](../../tree/complete), to see the outcome application of the
-[Vaadin-on-Kotlin Getting Started](http://www.vaadinonkotlin.eu/gettingstarted-v10.html) tutorial.
+Main class: `com.example.vok.MainKt`.
