@@ -3,17 +3,24 @@ package com.example.vok
 import com.github.mvysny.karibudsl.v10.*
 import com.github.mvysny.kaributools.setPrimary
 import com.github.mvysny.ktormvaadin.dataProvider
+import com.vaadin.flow.component.Component
 import com.vaadin.flow.component.button.Button
 import com.vaadin.flow.component.dialog.Dialog
+import com.vaadin.flow.component.html.Span
 import com.vaadin.flow.component.notification.Notification
 import com.vaadin.flow.component.orderedlayout.FlexComponent
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout
+import com.vaadin.flow.data.renderer.ComponentRenderer
 import com.vaadin.flow.data.value.ValueChangeMode
 import com.vaadin.flow.router.Route
 import org.ktorm.dsl.and
 import org.ktorm.dsl.eq
+import org.ktorm.dsl.lt
 import org.ktorm.dsl.or
 import org.ktorm.schema.ColumnDeclaring
 import org.ktorm.support.postgresql.ilike
+
+private const val LOW_STOCK_THRESHOLD: Int = 10
 
 @Route("")
 class CatalogView : KComposite() {
@@ -44,16 +51,18 @@ class CatalogView : KComposite() {
                     setWidth("12em")
                     isClearButtonVisible = true
                 }
+                val lowStockField = checkBox("Low stock only")
                 button("+ Add product") {
                     setPrimary()
                     onClick { openAddDialog() }
                 }
 
                 fun applyFilters() {
-                    dp.setFilter(productFilter(searchField.value, categoryField.value))
+                    dp.setFilter(productFilter(searchField.value, categoryField.value, lowStockField.value))
                 }
                 searchField.addValueChangeListener { applyFilters() }
                 categoryField.addValueChangeListener { applyFilters() }
+                lowStockField.addValueChangeListener { applyFilters() }
             }
 
             horizontalLayout {
@@ -66,7 +75,7 @@ class CatalogView : KComposite() {
                     columnFor(Product::name) { setHeader("Name"); flexGrow = 1 }
                     columnFor(Product::category) { setHeader("Category") }
                     columnFor(Product::price) { setHeader("Price") }
-                    columnFor(Product::stock) { setHeader("Stock") }
+                    columnFor(Product::stock, ComponentRenderer(::stockCell)) { setHeader("Stock") }
                     columnFor(Product::unit) { setHeader("Unit") }
 
                     asSingleSelect().addValueChangeListener { e -> showSelection(e.value) }
@@ -143,7 +152,11 @@ class CatalogView : KComposite() {
     }
 }
 
-private fun productFilter(search: String, category: Category?): ColumnDeclaring<Boolean>? {
+private fun productFilter(
+    search: String,
+    category: Category?,
+    lowStockOnly: Boolean,
+): ColumnDeclaring<Boolean>? {
     val s = search.trim()
     val parts = listOfNotNull(
         if (s.isEmpty()) null else {
@@ -151,6 +164,22 @@ private fun productFilter(search: String, category: Category?): ColumnDeclaring<
             Products.name.ilike(pattern) or Products.sku.ilike(pattern)
         },
         category?.let { Products.category eq it },
+        if (lowStockOnly) Products.stock lt LOW_STOCK_THRESHOLD else null,
     )
     return parts.reduceOrNull { a, b -> a and b }
+}
+
+private fun stockCell(product: Product): Component {
+    val layout = HorizontalLayout()
+    layout.isPadding = false
+    layout.isSpacing = true
+    layout.defaultVerticalComponentAlignment = FlexComponent.Alignment.CENTER
+    layout.add(Span(product.stock?.toString().orEmpty()))
+    val stock = product.stock
+    if (stock != null && stock < LOW_STOCK_THRESHOLD) {
+        val badge = Span("Low stock")
+        badge.element.setAttribute("theme", "badge error small")
+        layout.add(badge)
+    }
+    return layout
 }
