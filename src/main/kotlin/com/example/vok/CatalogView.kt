@@ -4,8 +4,9 @@ import com.github.mvysny.karibudsl.v10.*
 import com.github.mvysny.kaributools.setPrimary
 import com.github.mvysny.ktormvaadin.dataProvider
 import com.vaadin.flow.component.button.Button
+import com.vaadin.flow.component.dialog.Dialog
 import com.vaadin.flow.component.notification.Notification
-import com.vaadin.flow.data.binder.Binder
+import com.vaadin.flow.component.orderedlayout.FlexComponent
 import com.vaadin.flow.data.value.ValueChangeMode
 import com.vaadin.flow.router.Route
 import org.ktorm.dsl.and
@@ -18,7 +19,7 @@ import org.ktorm.support.postgresql.ilike
 class CatalogView : KComposite() {
 
     private val dp = Products.dataProvider
-    private val binder = Binder<Product>(Product::class.java)
+    private lateinit var sidePanelForm: ProductForm
     private var selected: Product? = null
     private lateinit var saveButton: Button
     private lateinit var deleteButton: Button
@@ -30,6 +31,8 @@ class CatalogView : KComposite() {
             h2("BoltShop catalog")
 
             horizontalLayout {
+                defaultVerticalComponentAlignment = FlexComponent.Alignment.END
+
                 val searchField = textField {
                     placeholder = "Search by name or SKU"
                     valueChangeMode = ValueChangeMode.LAZY
@@ -40,6 +43,10 @@ class CatalogView : KComposite() {
                     setItems(Category.entries)
                     setWidth("12em")
                     isClearButtonVisible = true
+                }
+                button("+ Add product") {
+                    setPrimary()
+                    onClick { openAddDialog() }
                 }
 
                 fun applyFilters() {
@@ -70,18 +77,7 @@ class CatalogView : KComposite() {
 
                     h3("Product details")
 
-                    textField("SKU") { bind(binder).bind(Product::sku) }
-                    textField("Name") { bind(binder).bind(Product::name) }
-                    comboBox<Category>("Category") {
-                        setItems(Category.entries)
-                        bind(binder).bind(Product::category)
-                    }
-                    bigDecimalField("Price") { bind(binder).bind(Product::price) }
-                    integerField("Stock") { bind(binder).bind(Product::stock) }
-                    comboBox<UnitOfMeasure>("Unit") {
-                        setItems(UnitOfMeasure.entries)
-                        bind(binder).bind(Product::unit)
-                    }
+                    sidePanelForm = productForm()
 
                     horizontalLayout {
                         saveButton = button("Save") {
@@ -103,14 +99,14 @@ class CatalogView : KComposite() {
 
     private fun showSelection(product: Product?) {
         selected = product
-        binder.readBean(product)
+        sidePanelForm.binder.readBean(product)
         saveButton.isEnabled = product != null
         deleteButton.isEnabled = product != null
     }
 
     private fun onSave() {
         val product = selected ?: return
-        if (!binder.writeBeanIfValid(product)) return
+        if (!sidePanelForm.binder.writeBeanIfValid(product)) return
         product.save()
         dp.refreshAll()
         Notification.show("Saved ${product.name}")
@@ -122,6 +118,28 @@ class CatalogView : KComposite() {
         dp.refreshAll()
         showSelection(null)
         Notification.show("Deleted ${product.name}")
+    }
+
+    private fun openAddDialog() {
+        val dialog = Dialog()
+        dialog.headerTitle = "Add product"
+
+        val form = ProductForm()
+        val draft = Product()
+        form.binder.readBean(draft)
+        dialog.add(form)
+
+        val createButton = Button("Create") {
+            if (!form.binder.writeBeanIfValid(draft)) return@Button
+            draft.save()
+            dp.refreshAll()
+            Notification.show("Created ${draft.name}")
+            dialog.close()
+        }.apply { setPrimary() }
+        val cancelButton = Button("Cancel") { dialog.close() }
+        dialog.footer.add(cancelButton, createButton)
+
+        dialog.open()
     }
 }
 
