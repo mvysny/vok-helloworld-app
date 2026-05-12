@@ -4,6 +4,8 @@ import com.github.mvysny.karibudsl.v10.*
 import com.github.mvysny.ktormvaadin.dataProvider
 import com.vaadin.flow.data.value.ValueChangeMode
 import com.vaadin.flow.router.Route
+import org.ktorm.dsl.and
+import org.ktorm.dsl.eq
 import org.ktorm.dsl.or
 import org.ktorm.schema.ColumnDeclaring
 import org.ktorm.support.postgresql.ilike
@@ -18,13 +20,24 @@ class CatalogView : KComposite() {
 
             val dp = Products.dataProvider
 
-            textField {
-                placeholder = "Search by name or SKU"
-                valueChangeMode = ValueChangeMode.LAZY
-                setWidth("20em")
-                addValueChangeListener { e ->
-                    dp.setFilter(productFilter(e.value))
+            horizontalLayout {
+                val searchField = textField {
+                    placeholder = "Search by name or SKU"
+                    valueChangeMode = ValueChangeMode.LAZY
+                    setWidth("20em")
                 }
+                val categoryField = comboBox<Category> {
+                    placeholder = "Category"
+                    setItems(Category.entries)
+                    setWidth("12em")
+                    isClearButtonVisible = true
+                }
+
+                fun applyFilters() {
+                    dp.setFilter(productFilter(searchField.value, categoryField.value))
+                }
+                searchField.addValueChangeListener { applyFilters() }
+                categoryField.addValueChangeListener { applyFilters() }
             }
 
             grid<Product>(Product::class, dp) {
@@ -40,9 +53,14 @@ class CatalogView : KComposite() {
     }
 }
 
-private fun productFilter(query: String): ColumnDeclaring<Boolean>? {
-    val q = query.trim()
-    if (q.isEmpty()) return null
-    val pattern = "%$q%"
-    return Products.name.ilike(pattern) or Products.sku.ilike(pattern)
+private fun productFilter(search: String, category: Category?): ColumnDeclaring<Boolean>? {
+    val s = search.trim()
+    val parts = listOfNotNull(
+        if (s.isEmpty()) null else {
+            val pattern = "%$s%"
+            Products.name.ilike(pattern) or Products.sku.ilike(pattern)
+        },
+        category?.let { Products.category eq it },
+    )
+    return parts.reduceOrNull { a, b -> a and b }
 }
