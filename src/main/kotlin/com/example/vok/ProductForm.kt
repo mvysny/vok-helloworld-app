@@ -6,7 +6,7 @@ import com.vaadin.flow.data.binder.Binder
 
 class ProductForm : KComposite() {
 
-    val binder: Binder<Product> = Binder(Product::class.java)
+    val binder: Binder<Product> = beanValidationBinder()
 
     private val root = ui {
         formLayout {

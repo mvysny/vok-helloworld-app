@@ -1,6 +1,11 @@
 package com.example.vok
 
 import com.github.mvysny.ktormvaadin.ActiveEntity
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.Positive
+import jakarta.validation.constraints.PositiveOrZero
+import jakarta.validation.constraints.Size
 import org.ktorm.entity.Entity
 import org.ktorm.schema.Column
 import org.ktorm.schema.Table
@@ -17,11 +22,31 @@ enum class UnitOfMeasure { Each, Box, Meter, Kilogram }
 
 interface Product : ActiveEntity<Product> {
     var id: Long?
+
+    @get:NotNull
+    @get:Size(min = 1, max = 40)
+    @get:Pattern(
+        regexp = "[A-Z0-9-]+",
+        message = "SKU may only contain uppercase letters, digits and hyphens"
+    )
     var sku: String?
+
+    @get:NotNull
+    @get:Size(min = 1, max = 200)
     var name: String?
+
+    @get:NotNull
     var category: Category?
+
+    @get:NotNull
+    @get:Positive(message = "Price must be greater than zero")
     var price: BigDecimal?
+
+    @get:NotNull
+    @get:PositiveOrZero(message = "Stock cannot be negative")
     var stock: Int?
+
+    @get:NotNull
     var unit: UnitOfMeasure?
 
     override val table: Table<Product> get() = Products
