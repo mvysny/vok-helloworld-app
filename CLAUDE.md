@@ -7,10 +7,12 @@ source lives at `../vaadin-on-kotlin/docs/tutorial.md`.
 ## Branches
 
 - **`master`** — the tutorial's **starting point**, and currently *is* [Chapter 0](#chapter-0--starting-point-on-master).
-- **`complete`** — the tutorial's **ending point**. Branch does not yet exist; it will
-  be rebuilt branch-by-chapter on top of `master` (strategy TBD when we start writing
-  chapters). The previous tutorial's Rails-port `complete` tip is preserved as the
-  `legacy-rails-tutorial` tag for historical reference.
+- **`complete`** — the tutorial's **ending point**: the full BoltShop catalog as
+  built by the tutorial. One commit per chapter on top of `master`, plus one fix
+  commit (`fix: append DATABASE_TO_UPPER=FALSE …`) that lands as the Chapter 10
+  prerequisite (see the tutorial for the why). The previous tutorial's
+  Rails-port `complete` tip is preserved as the `legacy-rails-tutorial` tag for
+  historical reference.
 
 ## Stack
 
@@ -148,7 +150,7 @@ for the canonical commands. Quick reference:
 
 - `./gradlew run` — dev mode
 - `./gradlew build` — full build incl. production bundle
-- `./gradlew test` — JUnit 6 tests (none currently in `master`)
+- `./gradlew test` — JUnit 6 tests (none on `master`; from Chapter 10 onwards on `complete`)
 
 Main class: `com.example.vok.MainKt`.
 
@@ -157,8 +159,6 @@ Main class: `com.example.vok.MainKt`.
 - Follow the project-type skill autoloaded by `~/.claude/CLAUDE.md` for Gradle work.
 - When proposing dependency upgrades, verify versions against Maven Central via the
   `maven-tools` MCP — JUnit 6 GA exists, etc.
-- Karibu-Testing will be the test stack from Chapter 10 onwards. **Caveat:** as of the
-  Vaadin 25.1.5 bump, there is no `karibu-testing-v25` artifact on Maven Central yet —
-  the `kaributesting = "...:karibu-testing-v24:2.7.0"` entry in `libs.versions.toml` is
-  dead config (not wired to any `testImplementation`) and needs to be resolved before
-  Chapter 10 lands.
+- Karibu-Testing is the test stack from Chapter 10 onwards. The artifact is
+  `karibu-testing-v24` (there is no `-v25` variant — the `-v24` artifact targets both
+  Vaadin 24 and 25).
