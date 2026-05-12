@@ -6,10 +6,14 @@ source lives at `../vaadin-on-kotlin/docs/tutorial.md`.
 
 ## Branches
 
-- **`master`** — skeletal starter: a single `WelcomeView` ([src/main/kotlin/com/example/vok/WelcomeView.kt](src/main/kotlin/com/example/vok/WelcomeView.kt)),
-  Vaadin Boot bootstrap, H2 + Flyway, an empty Javalin REST servlet. No domain logic.
-- **`complete`** — the finished tutorial app (a CRUD blog/article app modeled after the
-  Ruby-on-Rails "Getting Started" tutorial).
+Both branches will be rewritten for the new tutorial:
+
+- **`master`** — the tutorial's **starting point** (see [Chapter 0](#chapter-0--starting-point-on-master) below).
+  Today it still has a Chuck-Norris-themed `WelcomeView` and a Bootstrap that uses the
+  old `JdbiOrm.setDataSource(...)` API — both need cleaning up before the tutorial begins.
+- **`complete`** — the tutorial's **ending point**: the fully-built BoltShop back-office
+  app. Currently still holds the old Rails-port blog code from the previous tutorial;
+  will be replaced by the result of working through all chapters.
 
 ## Stack
 
@@ -17,15 +21,19 @@ source lives at `../vaadin-on-kotlin/docs/tutorial.md`.
 - Kotlin 2.2, JVM 17
 - Karibu-DSL for UI, Karibu-Tools utilities
 - H2 in-memory + Flyway migrations, HikariCP
-- JDBI-ORM via `vok-db` (see [build.gradle.kts](build.gradle.kts))
+- **Ktorm** via `vok-db` (= `eu.vaadinonkotlin:vok-framework-vokdb`, which depends on
+  `ktormvaadin`). The `JdbiOrm.setDataSource(...)` call in `Bootstrap.kt` is leftover
+  from the old stack and will be swapped for the ktorm-flavoured `VokOrm` init when
+  we clean up `master`.
 - Javalin for REST (`vok-rest`)
 - Logging: SLF4J Simple
 
 ## Known problems with this app (the reason we're rethinking it)
 
 1. **Outdated persistence stack.** The original tutorial uses `vok-orm`, which has been
-   removed from Vaadin-on-Kotlin and replaced by **Ktorm**. The current `master` has
-   already moved to `vok-db` (JDBI-ORM), but the `complete` branch and the tutorial
+   removed from Vaadin-on-Kotlin and replaced by **Ktorm**. The current `master` already
+   pulls in `vok-db` (the ktorm-based VoK persistence module), but its `Bootstrap.kt`
+   still calls the legacy `JdbiOrm` init, and the `complete` branch and the tutorial
    prose still reflect the old vok-orm world.
 2. **Wrong app shape.** The tutorial is a near-direct port of the Rails "Getting Started"
    blog app. That shape fits Rails' multi-page, request/response model. Vaadin apps are
@@ -33,21 +41,145 @@ source lives at `../vaadin-on-kotlin/docs/tutorial.md`.
    articles-and-comments example doesn't showcase what Vaadin is actually good at and
    teaches readers patterns that fight the framework.
 
-## What we want to do
+## The new tutorial app: **BoltShop**
 
-Design a **better example app** for the VoK tutorial — one that genuinely showcases
-Vaadin's SPA nature. Open questions / directions to research:
+A small neighborhood hardware store with an online product catalog and a Click &
+Collect workflow. The customer browses, picks items, collects them in store.
+The tutorial builds the **back-office catalog screen** the shopkeeper uses.
 
-- Look at what Vaadin's own docs / starters use as canonical examples (e.g. Bakery,
-  Beverage Buddy, Walking Skeleton, Hilla CRM tutorial).
-- A **master-detail CRUD** with live filtering, inline editing, and a side panel for
-  the selected row — uses Grid, Binder, dialogs, things Vaadin shines at.
-- A small dashboard with live-updating charts / KPIs (push, broadcaster) to demonstrate
-  server-driven UI.
-- Multi-view app with a layout shell, navigation, and a couple of related entities so
-  Karibu-DSL routing and `Grid` + form patterns get exercised.
+### Why this domain
 
-No decision yet — this is a brainstorming phase. Suggestions welcome before implementation.
+- Universally relatable — everyone has bought a screw or a tin of paint.
+- Distinct from existing VoK examples (no overlap with beverage-buddy, bookstore,
+  task-list, security-demo).
+- Distinct from Vaadin's official "Click & Collect" tutorial domain (which is a
+  generic product catalog) — same *shape*, fresh *flavor*.
+- The shape is **the canonical Vaadin SPA shape**: master-detail in a single view,
+  side form, add dialog, reactive filters. Same pedagogical sequence Vaadin's own
+  Getting Started uses.
+
+### Entity (start with one)
+
+`Product`:
+- `sku` — string, e.g. `HX-M6-40`
+- `name` — string, e.g. *"Hex bolt M6×40mm, zinc-plated"*
+- `category` — enum: `Tools`, `Fasteners`, `Plumbing`, `Electrical`, `Paint`, `Garden`
+- `price` — `BigDecimal`
+- `stock` — int (current count on hand)
+- `unit` — enum: `Each`, `Box`, `Meter`, `Kilogram`
+
+### Single SPA screen — master-detail
+
+- **Left half**: `Grid<Product>` with
+  - search `TextField` over name/SKU (live filter)
+  - `ComboBox<Category>` category filter
+  - "Low stock only" `Checkbox` toggle
+  - custom cell renderer: red **"Low stock"** badge when `stock < threshold`
+- **Right half**: details panel for selected row
+  - edit-in-place via `Binder<Product>`
+  - Save / Delete buttons
+- **`+ Add product`** button — opens a `Dialog` reusing the same form
+- Karibu-Testing covers the whole screen browserless
+
+### What this exercises (per Vaadin core)
+
+- `Grid` with custom renderers, sorting, in-memory or DB-backed data provider
+- `Binder` (forms, validation, save/restore)
+- `Dialog` for add
+- Reactive filter wiring — typing updates Grid live (the thing a multi-page app can't
+  do cleanly)
+- Karibu-DSL idiomatic layout
+
+### Out of scope (for now)
+
+- Customer-facing storefront, cart, checkout — this is the back-office only.
+- Product images (defer until we have a clean story for asset handling).
+- Authentication — the existing `vok-security-demo` already covers that.
+
+## Tutorial chapter arc (`master` → `complete`)
+
+**One new concept per chapter.** Each chapter ends with a runnable, demo-able app.
+Tests are intentionally deferred to a single dedicated chapter at the end — the goal
+in early chapters is *learning momentum*, not test discipline.
+
+### Chapter 0 — starting point on `master`
+
+What learners get when they clone the repo:
+
+- Vaadin Boot wired (`./gradlew run` boots an empty app)
+- H2 + Flyway + ktorm (via `vok-db`) on the classpath, **no migrations, no entities**
+- A minimal `WelcomeView` rendering *"Welcome to BoltShop"* — strip the Chuck Norris
+  / version-info marketing that's there today
+- `Bootstrap.kt` cleaned up to initialize ktorm via `VokOrm` (drop the legacy
+  `JdbiOrm.setDataSource` call)
+- REST scaffold (`JavalinRestServlet`) left in place — unused until Chapter 11
+- `README.md` linking to the tutorial
+
+So `master` is *"the framework starts; nothing domain-specific exists yet."*
+Everything BoltShop is built by the learner.
+
+### Chapter list
+
+| # | Title | New concept | What the learner builds |
+|---|---|---|---|
+| 1 | Hello, Karibu-DSL | Building UI in Kotlin with Karibu-DSL; event handlers | Replace `WelcomeView` with a greeting form: `TextField` + `Button` → shows a `Notification` |
+| 2 | A Grid of products (in-memory) | `Grid` component, columns, in-memory data | `Product` data class; `Grid<Product>` from a hardcoded `listOf(...)` of 5–10 items |
+| 3 | Persisting to the database | Flyway migration + ktorm entity + finder. **Heaviest chapter** — call this out in prose. | `V1__create_product.sql`; make `Product` a ktorm entity; replace hardcoded list with `Product.findAll()` |
+| 4 | Live filtering | `DataProvider`, reactive server-side filter | Search `TextField` above Grid; refreshes data provider on each keystroke (search by name/SKU) |
+| 5 | Category filter | `ComboBox`, enums in UI | `Category` enum + `ComboBox` filter; combines with the search field |
+| 6 | Editing the selected product | Side panel + `Binder` (two-way data binding) | Right-hand panel shows form for selected row; Save persists |
+| 7 | Adding new products | `Dialog`, extracting a reusable form component | `+ Add` button opens a dialog reusing the form `KComposite` |
+| 8 | Validation | `Binder` validators, inline error messages | Required name, price > 0, stock ≥ 0, SKU format regex |
+| 9 | Custom cell rendering | `ComponentRenderer` / themed badges | Red "Low stock" badge when `stock < threshold`; "Low stock only" toggle |
+| 10 | Browserless tests | Karibu-Testing, `MockVaadin`, `_get`/`_click`/`_setValue` | Tests covering filter, edit, add, validation |
+| 11 | Exposing a REST API | Wiring `vok-rest` / Javalin; hands-on `curl` | `GET /api/products`, `GET /api/products/{sku}`, `POST /api/products`. Chapter must end with literal `curl` examples the reader pastes into their terminal. |
+
+### Ending point on `complete`
+
+The full BoltShop back-office screen: filterable Grid (search + category +
+low-stock toggle), master-detail with `Binder` and validation, add dialog, low-stock
+badge, Karibu-Testing coverage, REST endpoint with documented `curl` examples.
+
+## Next steps (gated on VoK 0.19.0 release)
+
+Both steps are blocked on **VoK 0.19.0** appearing on Maven Central (current version
+in [libs.versions.toml](gradle/libs.versions.toml) is `0.18.1`). Do nothing until
+that's released — none of this needs to land early.
+
+When 0.19.0 lands, in order:
+
+1. **Preserve the old tutorial code as a tag, then wipe `complete`.**
+   - `git tag legacy-rails-tutorial origin/complete` (tag the current published tip)
+   - `git push origin legacy-rails-tutorial`
+   - `git push origin --delete complete` (and delete the local branch if present)
+   - Rationale: deleting a published branch is hard to reverse; a tag costs nothing
+     and keeps the old Rails-port code reachable for reference. Confirm with user
+     before pushing the delete.
+
+2. **Bring `master` to the Chapter 0 starting point.**
+   - Bump `vok = "0.19.0"` in `libs.versions.toml`; bump any other dependencies that
+     0.19.0 requires (verify via `maven-tools` MCP).
+   - Rewrite `Bootstrap.kt`: drop `JdbiOrm.setDataSource(...)`, initialize ktorm via
+     the current `VokOrm` API (verify exact signature against the 0.19.0 sources).
+   - Replace `WelcomeView` with a minimal *"Welcome to BoltShop"* placeholder — strip
+     the Chuck Norris image, version-info HTML, and the `chucknorris.jpg` asset.
+   - Update `README.md` to describe BoltShop, not the old "follow the tutorial" boilerplate.
+   - Verify `./gradlew run` still boots a clean app.
+
+After both: `master` is ready to be Chapter 0 of the new tutorial, and `complete`
+will be rebuilt branch-by-chapter (probably a single merged branch grown on top of
+`master`, with one commit per chapter — to be decided when we get there).
+
+## Beyond `complete` — possible follow-up tutorials
+
+Out of scope for the main tutorial; candidates for later parts. Each adds one concept
+without rewriting earlier code:
+
+1. Promote `Category` from enum to its own entity → second route + admin screen →
+   introduces routing & `MainLayout`.
+2. Add `Supplier` with FK to `Product` → first **ktorm join** demonstration.
+3. Vaadin Push — broadcast stock changes to all open sessions so two browser tabs
+   see live updates.
 
 ## Build & run
 
