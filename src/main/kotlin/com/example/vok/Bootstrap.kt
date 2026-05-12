@@ -1,5 +1,7 @@
 package com.example.vok
 
+import com.github.mvysny.ktormvaadin.db
+import com.github.mvysny.ktormvaadin.findAll
 import com.vaadin.flow.component.dependency.StyleSheet
 import com.vaadin.flow.component.page.AppShellConfigurator
 import com.vaadin.flow.component.page.Viewport
@@ -11,10 +13,8 @@ import eu.vaadinonkotlin.vaadin.vokdb.dataSource
 import eu.vaadinonkotlin.rest.VokRest
 import eu.vaadinonkotlin.rest.gsonMapper
 import io.javalin.Javalin
+import io.javalin.http.NotFoundResponse
 import io.javalin.http.servlet.JavalinServlet
-import org.flywaydb.core.Flyway
-import org.h2.Driver
-import org.slf4j.LoggerFactory
 import jakarta.servlet.ServletContextEvent
 import jakarta.servlet.ServletContextListener
 import jakarta.servlet.annotation.WebListener
@@ -22,6 +22,13 @@ import jakarta.servlet.annotation.WebServlet
 import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import jakarta.validation.ConstraintViolationException
+import org.flywaydb.core.Flyway
+import org.h2.Driver
+import org.ktorm.dsl.eq
+import org.ktorm.entity.find
+import org.ktorm.entity.sequenceOf
+import org.slf4j.LoggerFactory
 
 /**
  * Called by the Servlet Container to bootstrap your app. We need to bootstrap the Vaadin-on-Kotlin framework,
@@ -73,7 +80,7 @@ class Bootstrap: ServletContextListener {
  * Provides access to REST services. Uses the Javalin library to export the REST services; the services are configured
  * in the [configureRest] method.
  */
-@WebServlet(urlPatterns = ["/rest/*"], name = "JavalinRestServlet", asyncSupported = false)
+@WebServlet(urlPatterns = ["/api/*"], name = "JavalinRestServlet", asyncSupported = false)
 class JavalinRestServlet : HttpServlet() {
     val javalin: JavalinServlet = Javalin.createStandalone { it.gsonMapper(VokRest.gson) } .configureRest().javalinServlet()
 
@@ -83,6 +90,24 @@ class JavalinRestServlet : HttpServlet() {
 }
 
 fun Javalin.configureRest(): Javalin {
+    get("/api/products") { ctx ->
+        ctx.json(Products.findAll().map { it.toDto() })
+    }
+    get("/api/products/{sku}") { ctx ->
+        val sku = ctx.pathParam("sku")
+        val product = db { database.sequenceOf(Products).find { it.sku eq sku } }
+            ?: throw NotFoundResponse("No product with SKU '$sku'")
+        ctx.json(product.toDto())
+    }
+    post("/api/products") { ctx ->
+        val dto = ctx.bodyAsClass(ProductDto::class.java)
+        val product = dto.toEntity()
+        product.save()
+        ctx.status(201).json(product.toDto())
+    }
+    exception(ConstraintViolationException::class.java) { e, ctx ->
+        ctx.status(400).json(mapOf("errors" to e.constraintViolations.map { it.message }))
+    }
     return this
 }
 
