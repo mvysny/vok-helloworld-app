@@ -18,7 +18,7 @@ Both branches will be rewritten for the new tutorial:
 ## Stack
 
 - Vaadin Flow on Vaadin Boot (embedded Jetty, `main()` entry point — no Spring)
-- Kotlin 2.2, JVM 21 (bumped from 17 — VoK 0.19.0 requires Java 21)
+- Kotlin 2.3, JVM 21 (JVM bumped from 17 — VoK 0.19.0 requires Java 21)
 - Karibu-DSL for UI, Karibu-Tools utilities
 - H2 in-memory + Flyway migrations, HikariCP
 - **Ktorm** via `vok-db` (= `eu.vaadinonkotlin:vok-framework-vokdb`, which depends on
