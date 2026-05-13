@@ -1,7 +1,9 @@
 package com.example.vok
 
+import com.vaadin.flow.component.dependency.StyleSheet
 import com.vaadin.flow.component.page.AppShellConfigurator
 import com.vaadin.flow.component.page.Viewport
+import com.vaadin.flow.theme.aura.Aura
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import eu.vaadinonkotlin.VaadinOnKotlin
@@ -85,4 +87,5 @@ fun Javalin.configureRest(): Javalin {
 }
 
 @Viewport(Viewport.DEVICE_DIMENSIONS)
+@StyleSheet(Aura.STYLESHEET)
 class AppShell: AppShellConfigurator
