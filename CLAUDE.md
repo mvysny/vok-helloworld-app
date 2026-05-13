@@ -8,11 +8,9 @@ source lives at `../vaadin-on-kotlin/docs/tutorial.md`.
 
 - **`master`** — the tutorial's **starting point**, and currently *is* [Chapter 0](#chapter-0--starting-point-on-master).
 - **`complete`** — the tutorial's **ending point**: the full BoltShop catalog as
-  built by the tutorial. One commit per chapter on top of `master`, plus one fix
-  commit (`fix: append DATABASE_TO_UPPER=FALSE …`) that lands as the Chapter 10
-  prerequisite (see the tutorial for the why). The previous tutorial's
-  Rails-port `complete` tip is preserved as the `legacy-rails-tutorial` tag for
-  historical reference.
+  built by the tutorial. One commit per chapter on top of `master`. The previous
+  tutorial's Rails-port `complete` tip is preserved as the `legacy-rails-tutorial`
+  tag for historical reference.
 
 ## Stack
 
